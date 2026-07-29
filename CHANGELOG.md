@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.1 - 2026-07-29
+
+- Updated GitHub Actions to the current Node.js 24-based releases.
+- Runtime rules, hooks, documentation, and visual assets are unchanged.
+
 ## 2.2.0 - 2026-07-29
 
 - Added a complete visual identity for the repository and Codex plugin.

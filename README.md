@@ -24,8 +24,8 @@ You need:
 
 ### 1. Install the marketplace and plugin
 
-Open PowerShell, Terminal, or the Codex terminal. Paste these commands one at a
-time:
+Open a terminal. On Windows, use PowerShell or the Codex terminal. Paste these
+commands one at a time:
 
 ```powershell
 codex plugin marketplace add plotdevice01/ai-sloppy-copy
@@ -70,12 +70,12 @@ copy plugin files into application folders manually.
 - Owner-approved voice samples for named-person copy.
 - Exact preservation of quotes, code, commands, paths, IDs, legal text, and
   required vendor wording.
-- Hard rules for banned terms, stock expressions, formatting habits, and
-  unsupported authorship claims.
+- Hard rules cover banned terms and stock expressions. They also cover
+  formatting habits and unsupported authorship claims.
 - Review rules that need human judgment instead of a reckless search-and-replace.
 
-The package includes 288 term rules, 21 expression rules, 34 style rules, and
-62 regression cases.
+The package includes 288 term rules and 21 expression rules. It also includes
+34 style rules and 62 regression cases.
 
 ## Use the checker directly
 
@@ -111,8 +111,8 @@ codex plugin marketplace remove ai-sloppy-copy
 
 AI Sloppy Copy is one part of the recommended
 [Codex Chief of Staff](https://github.com/plotdevice01/codex-chief-of-staff)
-installation. The Chief of Staff guide installs Ponytail, AI Sloppy Copy, and
-Chief of Staff in the correct order.
+installation. The Chief of Staff guide installs the full three-plugin stack in
+the correct order.
 
 ## Privacy and security
 

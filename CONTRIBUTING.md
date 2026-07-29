@@ -7,4 +7,4 @@
 5. Open a pull request with the rule ID, rationale, and test result.
 
 Do not submit private client text, credentials, personal data, or claims that
-the project can determine authorship.
+the project can identify authorship.

@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.2 - 2026-07-29
+
+- Validated the public documentation against the bundled copy standard.
+- No runtime rules, hooks, or behavior changed.
+
 ## 2.1.1 - 2026-07-29
 
 - Made release archives byte-for-byte reproducible across Windows and Linux.

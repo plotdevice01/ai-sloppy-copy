@@ -1,0 +1,24 @@
+{
+  "name": "ai-sloppy-copy",
+  "version": "2.1.0",
+  "description": "Builds evidence-backed prose in an approved voice and checks it against the AI Sloppy Copy Standard.",
+  "author": {
+    "name": "plotdevice01",
+    "url": "https://github.com/plotdevice01"
+  },
+  "homepage": "https://github.com/plotdevice01/ai-sloppy-copy",
+  "repository": "https://github.com/plotdevice01/ai-sloppy-copy",
+  "license": "MIT",
+  "keywords": ["writing", "copy-editing", "evidence", "voice", "codex"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "AI Sloppy Copy",
+    "shortDescription": "Evidence-backed copy in an approved human voice.",
+    "longDescription": "Applies evidence and voice gates, hard bans, semantic review rules, and local checks to assistant-authored prose.",
+    "developerName": "plotdevice01",
+    "category": "Productivity",
+    "capabilities": ["Instructions", "Lifecycle hooks", "Local copy checker"],
+    "websiteURL": "https://github.com/plotdevice01/ai-sloppy-copy",
+    "defaultPrompt": "Use $ai-sloppy-copy to ground the prose in verified evidence, match the approved voice, and repair rule failures."
+  }
+}

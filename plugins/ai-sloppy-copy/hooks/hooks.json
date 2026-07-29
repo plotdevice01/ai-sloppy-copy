@@ -1,0 +1,30 @@
+{
+  "description": "Reset each turn, then block assistant prose that fails hard AI Sloppy Copy rules.",
+  "hooks": {
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$PLUGIN_ROOT/scripts/hook_ai_sloppy_copy.py\"",
+            "commandWindows": "python \"%PLUGIN_ROOT%\\scripts\\hook_ai_sloppy_copy.py\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 \"$PLUGIN_ROOT/scripts/hook_ai_sloppy_copy.py\"",
+            "commandWindows": "python \"%PLUGIN_ROOT%\\scripts\\hook_ai_sloppy_copy.py\"",
+            "statusMessage": "Checking AI Sloppy Copy rules",
+            "timeout": 30
+          }
+        ]
+      }
+    ]
+  }
+}

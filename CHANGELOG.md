@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.2.2 - 2026-07-29
+
+- Corrected the badge row after live GitHub rendering verification.
+- Runtime rules, hooks, and visual assets are unchanged.
+
 ## 2.2.1 - 2026-07-29
 
 - Updated GitHub Actions to the current Node.js 24-based releases.
@@ -8,7 +13,8 @@
 ## 2.2.0 - 2026-07-29
 
 - Added a complete visual identity for the repository and Codex plugin.
-- Rebuilt the README around proof, safe installation, workflow, and boundaries.
+- Rebuilt the README around proof and safe installation.
+- Added workflow and boundary sections.
 - Added local icon, logo, dark-mode logo, example, workflow, and social-preview
   assets.
 - Added manifest presentation metadata and starter prompts.

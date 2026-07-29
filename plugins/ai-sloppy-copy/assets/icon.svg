@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-labelledby="title desc">
+  <title id="title">AI Sloppy Copy icon</title>
+  <desc id="desc">A checked document with a coral correction mark and teal approval mark.</desc>
+  <rect width="512" height="512" rx="112" fill="#0f172a"/>
+  <path d="M144 84h158l78 78v238c0 16.6-13.4 30-30 30H144c-16.6 0-30-13.4-30-30V114c0-16.6 13.4-30 30-30Z" fill="#f8fafc"/>
+  <path d="M302 84v62c0 8.8 7.2 16 16 16h62" fill="#cbd5e1"/>
+  <rect x="164" y="204" width="170" height="18" rx="9" fill="#94a3b8"/>
+  <rect x="164" y="254" width="126" height="18" rx="9" fill="#94a3b8"/>
+  <path d="m150 301 151-55" fill="none" stroke="#f97368" stroke-linecap="round" stroke-width="20"/>
+  <path d="m228 350 36 36 94-104" fill="none" stroke="#14b8a6" stroke-linecap="round" stroke-linejoin="round" stroke-width="24"/>
+</svg>

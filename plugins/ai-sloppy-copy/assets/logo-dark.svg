@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="240" viewBox="0 0 1000 240" role="img" aria-labelledby="title desc">
+  <title id="title">AI Sloppy Copy dark logo</title>
+  <desc id="desc">AI Sloppy Copy logo for dark backgrounds with the statement Evidence-backed copy. Local rule enforcement.</desc>
+  <rect width="1000" height="240" rx="32" fill="#0b1220"/>
+  <rect x="42" y="34" width="172" height="172" rx="42" fill="#172033" stroke="#334155" stroke-width="2"/>
+  <path d="M91 65h62l30 30v83c0 7.2-5.8 13-13 13H91c-7.2 0-13-5.8-13-13V78c0-7.2 5.8-13 13-13Z" fill="#f8fafc"/>
+  <path d="M153 65v24c0 3.3 2.7 6 6 6h24" fill="#cbd5e1"/>
+  <rect x="96" y="113" width="64" height="7" rx="3.5" fill="#94a3b8"/>
+  <rect x="96" y="132" width="48" height="7" rx="3.5" fill="#94a3b8"/>
+  <path d="m89 151 58-21" fill="none" stroke="#f97368" stroke-linecap="round" stroke-width="8"/>
+  <path d="m119 165 14 14 36-40" fill="none" stroke="#14b8a6" stroke-linecap="round" stroke-linejoin="round" stroke-width="9"/>
+  <text x="255" y="112" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="58" font-weight="800" letter-spacing="-1.5">AI SLOPPY COPY</text>
+  <text x="258" y="158" fill="#cbd5e1" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="25" font-weight="500">Evidence-backed copy. Local rule enforcement.</text>
+  <rect x="258" y="177" width="72" height="5" rx="2.5" fill="#14b8a6"/>
+  <rect x="338" y="177" width="36" height="5" rx="2.5" fill="#f97368"/>
+</svg>

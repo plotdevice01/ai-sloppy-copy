@@ -1,6 +1,6 @@
 {
   "name": "ai-sloppy-copy",
-  "version": "2.1.3",
+  "version": "2.2.0",
   "description": "Builds evidence-backed prose in an approved voice and checks it against the AI Sloppy Copy Standard.",
   "author": {
     "name": "plotdevice01",
@@ -19,6 +19,15 @@
     "category": "Productivity",
     "capabilities": ["Instructions", "Lifecycle hooks", "Local copy checker"],
     "websiteURL": "https://github.com/plotdevice01/ai-sloppy-copy",
-    "defaultPrompt": "Use $ai-sloppy-copy to ground the prose in verified evidence, match the approved voice, and repair rule failures."
+    "defaultPrompt": [
+      "Use $ai-sloppy-copy to check this draft.",
+      "Use $ai-sloppy-copy to match the approved voice.",
+      "Use $ai-sloppy-copy to repair rule failures."
+    ],
+    "brandColor": "#14B8A6",
+    "composerIcon": "./assets/icon.png",
+    "logo": "./assets/logo.png",
+    "logoDark": "./assets/logo-dark.png",
+    "screenshots": ["./assets/before-after.png"]
   }
 }

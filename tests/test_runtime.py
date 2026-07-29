@@ -5,9 +5,11 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import re
 import subprocess
 import sys
 import tempfile
+import xml.etree.ElementTree as ET
 from pathlib import Path
 
 
@@ -34,8 +36,34 @@ def main() -> None:
     assert marketplace["name"] == "ai-sloppy-copy"
     assert marketplace["plugins"][0]["source"]["path"] == "./plugins/ai-sloppy-copy"
     assert manifest["name"] == "ai-sloppy-copy"
-    assert manifest["version"] == "2.1.3"
+    assert manifest["version"] == "2.2.0"
     assert set(hooks["hooks"]) == {"UserPromptSubmit", "Stop"}
+
+    interface = manifest["interface"]
+    asset_paths = [
+        interface["composerIcon"],
+        interface["logo"],
+        interface["logoDark"],
+        *interface["screenshots"],
+    ]
+    for relative in asset_paths:
+        asset = PLUGIN / relative.removeprefix("./")
+        assert asset.is_file(), relative
+        assert asset.read_bytes().startswith(b"\x89PNG\r\n\x1a\n"), relative
+
+    svg_assets = sorted((PLUGIN / "assets").glob("*.svg"))
+    assert svg_assets
+    for asset in svg_assets:
+        root = ET.parse(asset).getroot()
+        namespace = {"svg": "http://www.w3.org/2000/svg"}
+        assert root.find("svg:title", namespace) is not None, asset.name
+        assert root.find("svg:desc", namespace) is not None, asset.name
+
+    readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    local_references = re.findall(r"\]\((?!https?://|#)([^)]+)\)", readme)
+    local_references += re.findall(r'(?:src|srcset)="(?!https?://)([^"]+)"', readme)
+    for relative in local_references:
+        assert (ROOT / relative).is_file(), relative
 
     checker = load_checker()
     rules = checker.load_rules(RULES)
@@ -78,7 +106,9 @@ def main() -> None:
     public_text = "\n".join(
         path.read_text(encoding="utf-8", errors="ignore")
         for path in ROOT.rglob("*")
-        if path.is_file() and ".git" not in path.parts and path.suffix.lower() not in {".zip", ".pyc"}
+        if path.is_file()
+        and ".git" not in path.parts
+        and path.suffix.lower() not in {".zip", ".pyc", ".png"}
     )
     forbidden = (
         "C:" + chr(92) + "Users" + chr(92),

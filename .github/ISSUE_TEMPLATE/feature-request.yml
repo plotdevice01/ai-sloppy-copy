@@ -1,0 +1,24 @@
+name: Feature request
+description: Propose a concrete improvement to the plugin or checker.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Describe the current limitation and who it affects.
+    validations:
+      required: true
+  - type: textarea
+    id: result
+    attributes:
+      label: Requested result
+      description: Describe the smallest useful outcome.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Example or evidence
+      description: Use safe sample text. Do not include private or client data.

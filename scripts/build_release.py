@@ -18,6 +18,8 @@ FILES = [
     ROOT / ".agents/plugins/marketplace.json",
     ROOT / "README.md",
     ROOT / "LICENSE",
+    ROOT / "SECURITY.md",
+    ROOT / "CONTRIBUTING.md",
     ROOT / "THIRD-PARTY-NOTICES.md",
     ROOT / "CHANGELOG.md",
     PLUGIN / ".codex-plugin/plugin.json",
@@ -27,7 +29,7 @@ FILES = [
     PLUGIN / "scripts/hook_ai_sloppy_copy.py",
     PLUGIN / "skills/ai-sloppy-copy/SKILL.md",
     PLUGIN / "skills/ai-sloppy-copy/agents/openai.yaml",
-]
+] + sorted(path for path in (PLUGIN / "assets").iterdir() if path.is_file())
 
 
 def build(output: Path = OUTPUT) -> str:

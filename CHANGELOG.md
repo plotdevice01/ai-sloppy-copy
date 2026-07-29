@@ -1,5 +1,16 @@
 # Changelog
 
+## 2.2.0 - 2026-07-29
+
+- Added a complete visual identity for the repository and Codex plugin.
+- Rebuilt the README around proof, safe installation, workflow, and boundaries.
+- Added local icon, logo, dark-mode logo, example, workflow, and social-preview
+  assets.
+- Added manifest presentation metadata and starter prompts.
+- Added asset, accessibility, link, and portable-release parity checks.
+- Expanded CI coverage to Python 3.10 through 3.13.
+- Runtime rules and hook behavior are unchanged.
+
 ## 2.1.3 - 2026-07-29
 
 - Completed the public documentation compliance pass.

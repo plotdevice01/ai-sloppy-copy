@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="560" viewBox="0 0 1200 560" role="img" aria-labelledby="title desc">
+  <title id="title">AI Sloppy Copy before and after example</title>
+  <desc id="desc">A generic draft with three blocked phrases is replaced by direct copy that names the action and result.</desc>
+  <rect width="1200" height="560" rx="32" fill="#0f172a"/>
+  <text x="56" y="68" fill="#f8fafc" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">FROM GENERIC TO SPECIFIC</text>
+  <text x="56" y="101" fill="#94a3b8" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="17">One local check. Exact rule IDs. Human-approved repair.</text>
+
+  <rect x="56" y="136" width="514" height="360" rx="24" fill="#fff"/>
+  <rect x="84" y="164" width="116" height="32" rx="16" fill="#fee2e2"/>
+  <text x="102" y="186" fill="#b42318" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="800">FLAGGED</text>
+  <text x="84" y="244" fill="#334155" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24">We can leverage this</text>
+  <text x="84" y="282" fill="#334155" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24">cutting-edge system to</text>
+  <text x="84" y="320" fill="#334155" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24">turbocharge production.</text>
+  <path d="M170 250h93M84 288h145M84 326h124" stroke="#f97368" stroke-linecap="round" stroke-width="5"/>
+  <rect x="84" y="377" width="102" height="32" rx="8" fill="#fff1f0"/>
+  <rect x="196" y="377" width="102" height="32" rx="8" fill="#fff1f0"/>
+  <rect x="308" y="377" width="110" height="32" rx="8" fill="#fff1f0"/>
+  <text x="96" y="399" fill="#b42318" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="700">TERM-021</text>
+  <text x="208" y="399" fill="#b42318" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="700">TERM-007</text>
+  <text x="320" y="399" fill="#b42318" font-family="ui-monospace, SFMono-Regular, Consolas, monospace" font-size="13" font-weight="700">TERM-211</text>
+  <text x="84" y="453" fill="#64748b" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16">Blocked before release</text>
+
+  <circle cx="600" cy="316" r="28" fill="#14b8a6"/>
+  <path d="m590 316 8 8 14-17" fill="none" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+
+  <rect x="630" y="136" width="514" height="360" rx="24" fill="#fff"/>
+  <rect x="658" y="164" width="122" height="32" rx="16" fill="#ccfbf1"/>
+  <text x="676" y="186" fill="#0f766e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="800">REPAIRED</text>
+  <text x="658" y="244" fill="#0f172a" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">Run the local checker</text>
+  <text x="658" y="282" fill="#0f172a" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">before publishing. It flags</text>
+  <text x="658" y="320" fill="#0f172a" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">blocked phrases and returns</text>
+  <text x="658" y="358" fill="#0f172a" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="24" font-weight="700">rule IDs for repair.</text>
+  <path d="m662 410 12 12 27-31" fill="none" stroke="#14b8a6" stroke-linecap="round" stroke-linejoin="round" stroke-width="7"/>
+  <text x="716" y="418" fill="#0f766e" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16" font-weight="700">Specific action. Verifiable result.</text>
+  <text x="658" y="453" fill="#64748b" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="16">Ready for human approval</text>
+</svg>

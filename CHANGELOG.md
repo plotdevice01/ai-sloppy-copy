@@ -1,9 +1,14 @@
 # Changelog
 
+## 2.1.3 - 2026-07-29
+
+- Completed the public documentation compliance pass.
+- Runtime behavior is unchanged. Rules and hooks are unchanged.
+
 ## 2.1.2 - 2026-07-29
 
 - Validated the public documentation against the bundled copy standard.
-- No runtime rules, hooks, or behavior changed.
+- Runtime behavior is unchanged. Rules and hooks are unchanged.
 
 ## 2.1.1 - 2026-07-29
 
@@ -15,5 +20,5 @@
 - Published the Codex marketplace and plugin as a public repository.
 - Added Codex lifecycle hooks and the local standard-library checker.
 - Added evidence, voice, protected-text, and authorship-claim controls.
-- Validated 62 regression cases across 288 terms, 21 expression rules, and 34
-  style rules.
+- Validated 62 regression cases. Coverage includes 288 term rules. It also
+  includes 21 expression rules and 34 style rules.

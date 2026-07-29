@@ -1,5 +1,10 @@
 # Changelog
 
+## 2.1.1 - 2026-07-29
+
+- Made release archives byte-for-byte reproducible across Windows and Linux.
+- Tightened public installation wording without changing rules or behavior.
+
 ## 2.1.0 - 2026-07-29
 
 - Published the Codex marketplace and plugin as a public repository.

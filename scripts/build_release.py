@@ -32,13 +32,13 @@ FILES = [
 
 def build(output: Path = OUTPUT) -> str:
     output.parent.mkdir(parents=True, exist_ok=True)
-    with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_DEFLATED, compresslevel=9) as archive:
+    with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_STORED) as archive:
         for path in FILES:
             relative = path.relative_to(ROOT).as_posix()
             info = zipfile.ZipInfo(f"{NAME}/{relative}", (2026, 7, 29, 0, 0, 0))
             info.create_system = 3
             info.external_attr = 0o100644 << 16
-            info.compress_type = zipfile.ZIP_DEFLATED
+            info.compress_type = zipfile.ZIP_STORED
             archive.writestr(info, path.read_bytes().replace(b"\r\n", b"\n"))
     digest = hashlib.sha256(output.read_bytes()).hexdigest()
     print(f"{output}\nSHA-256: {digest}")

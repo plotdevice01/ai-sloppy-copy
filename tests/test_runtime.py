@@ -34,7 +34,7 @@ def main() -> None:
     assert marketplace["name"] == "ai-sloppy-copy"
     assert marketplace["plugins"][0]["source"]["path"] == "./plugins/ai-sloppy-copy"
     assert manifest["name"] == "ai-sloppy-copy"
-    assert manifest["version"] == "2.1.0"
+    assert manifest["version"] == "2.1.1"
     assert set(hooks["hooks"]) == {"UserPromptSubmit", "Stop"}
 
     checker = load_checker()

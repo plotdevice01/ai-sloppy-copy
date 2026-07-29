@@ -8,9 +8,8 @@ AI Sloppy Copy is a Codex plugin that helps produce evidence-backed prose in an
 approved voice, catches common model-written patterns, and blocks hard rule
 violations before the response is returned.
 
-It does not identify whether a person or model wrote text. It does not promise
-AI-detector results. Those products cannot reliably prove authorship, despite
-their heroic confidence meters.
+It does not identify whether a person or model wrote text or promise
+AI-detector results. Rule compliance and authorship are separate questions.
 
 ## Install in Codex
 
@@ -63,8 +62,7 @@ Confirm `ai-sloppy-copy@ai-sloppy-copy` is installed and enabled. Then ask:
 The response should replace the flagged phrases with concrete wording.
 
 If the plugin does not appear, repeat step 1 exactly and restart Codex. Do not
-copy plugin files into random application folders. Windows already has enough
-ceremonial folder archaeology.
+copy plugin files into application folders manually.
 
 ## What it enforces
 

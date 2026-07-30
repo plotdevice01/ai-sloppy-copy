@@ -38,7 +38,7 @@ def main() -> None:
     assert marketplace["name"] == "ai-sloppy-copy"
     assert marketplace["plugins"][0]["source"]["path"] == "./plugins/ai-sloppy-copy"
     assert manifest["name"] == "ai-sloppy-copy"
-    assert manifest["version"] == "2.2.4"
+    assert manifest["version"] == "2.2.5"
     assert claude_marketplace["name"] == "ai-sloppy-copy"
     assert claude_marketplace["plugins"][0]["source"] == "./plugins/ai-sloppy-copy"
     assert claude_manifest["name"] == "ai-sloppy-copy"
@@ -86,6 +86,18 @@ def main() -> None:
         capture_output=True,
     )
     assert cli_fail.returncode == 1 and "TERM-032" in cli_fail.stdout
+    cli_invalid = subprocess.run(
+        [
+            sys.executable,
+            str(SCRIPTS / "ai_sloppy_copy.py"),
+            "--text",
+            "Draft",
+            str(ROOT / "README.md"),
+        ],
+        text=True,
+        capture_output=True,
+    )
+    assert cli_invalid.returncode != 0 and "either --text" in cli_invalid.stderr
     cli_pass = subprocess.run(
         [
             sys.executable,

@@ -265,9 +265,8 @@ def default_rules_path() -> Path:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Check authored prose against AI Sloppy Copy rules.")
-    inputs = parser.add_mutually_exclusive_group(required=True)
-    inputs.add_argument("--text", help="Check one text value.")
-    inputs.add_argument("paths", nargs="*", help="TXT, MD, CSV, JSON, HTML, XML, or DOCX files.")
+    parser.add_argument("--text", help="Check one text value.")
+    parser.add_argument("paths", nargs="*", help="TXT, MD, CSV, JSON, HTML, XML, or DOCX files.")
     parser.add_argument("--rules", type=Path, default=default_rules_path())
     parser.add_argument("--allow-term", action="append", default=[])
     parser.add_argument("--allow-rule-id", action="append", default=[])
@@ -282,6 +281,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: list[str] | None = None) -> int:
     args = build_parser().parse_args(argv)
+    if (args.text is None) == (not args.paths):
+        raise SystemExit("Provide either --text or one or more paths.")
     rules = load_rules(args.rules)
     glossary_terms, glossary_rules = load_glossary(args.glossary)
     allow_terms = {*args.allow_term, *glossary_terms}

@@ -1,6 +1,6 @@
 {
   "name": "ai-sloppy-copy",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "Builds evidence-backed prose in an approved voice and checks it against the AI Sloppy Copy Standard.",
   "author": {
     "name": "plotdevice01",

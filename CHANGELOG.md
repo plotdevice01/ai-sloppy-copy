@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.2.5 - 2026-07-29
+
+- Fixed `--text` parsing on Python 3.10 and 3.11 by validating input modes
+  after parsing instead of mixing an optional positional argument into an
+  `argparse` exclusive group.
+- Added a regression check for mixed text and file inputs.
+
+No copy rule, evidence control, voice control or hook behavior changed.
+
 ## 2.2.4 - 2026-07-29
 
 - Added a Claude Code marketplace and plugin manifest.

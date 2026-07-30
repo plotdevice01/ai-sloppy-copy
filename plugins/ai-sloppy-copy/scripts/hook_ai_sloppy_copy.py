@@ -108,8 +108,10 @@ def main() -> int:
     event_name = str(event.get("hook_event_name") or event.get("hook_event") or "")
     if event_name == "UserPromptSubmit":
         reset_state(session_id)
+        emit({})
         return 0
     if event_name and event_name != "Stop":
+        emit({})
         return 0
 
     is_claude = "last_assistant_message" in event
@@ -119,6 +121,7 @@ def main() -> int:
         else last_codex_message(event.get("transcript_path"))
     )
     if not text:
+        emit({})
         return 0
 
     hard = [
@@ -128,6 +131,7 @@ def main() -> int:
     ]
     if not hard:
         reset_state(session_id)
+        emit({})
         return 0
 
     rule_ids = ", ".join(sorted({item["rule_id"] for item in hard}))

@@ -36,8 +36,11 @@ def main() -> None:
     assert marketplace["name"] == "ai-sloppy-copy"
     assert marketplace["plugins"][0]["source"]["path"] == "./plugins/ai-sloppy-copy"
     assert manifest["name"] == "ai-sloppy-copy"
-    assert manifest["version"] == "2.2.2"
+    assert manifest["version"] == "2.2.3"
     assert set(hooks["hooks"]) == {"UserPromptSubmit", "Stop"}
+    for event in hooks["hooks"].values():
+        command = event[0]["hooks"][0]["commandWindows"]
+        assert "$env:PLUGIN_ROOT" in command and "%PLUGIN_ROOT%" not in command
 
     interface = manifest["interface"]
     asset_paths = [
@@ -67,6 +70,23 @@ def main() -> None:
 
     checker = load_checker()
     rules = checker.load_rules(RULES)
+    cli_fail = subprocess.run(
+        [sys.executable, str(SCRIPTS / "ai_sloppy_copy.py"), "--text", "We need to align the stakeholders."],
+        text=True,
+        capture_output=True,
+    )
+    assert cli_fail.returncode == 1 and "TERM-032" in cli_fail.stdout
+    cli_pass = subprocess.run(
+        [
+            sys.executable,
+            str(SCRIPTS / "ai_sloppy_copy.py"),
+            "--text",
+            '<p align="center">The report is ready.</p>',
+        ],
+        text=True,
+        capture_output=True,
+    )
+    assert cli_pass.returncode == 0 and "PASS: no AI Sloppy Copy findings." in cli_pass.stdout
     cases = json.loads((ROOT / "tests/cases.json").read_text(encoding="utf-8"))
     for case in cases:
         findings = checker.scan_text(case["text"], rules, source=case["id"])
@@ -80,6 +100,19 @@ def main() -> None:
             assert not findings, case["id"]
 
     with tempfile.TemporaryDirectory() as folder:
+        reset = subprocess.run(
+            [sys.executable, str(SCRIPTS / "hook_ai_sloppy_copy.py")],
+            input=json.dumps(
+                {
+                    "session_id": "public-runtime-test",
+                    "hook_event_name": "UserPromptSubmit",
+                }
+            ),
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+        assert json.loads(reset.stdout) == {}
         transcript = Path(folder) / "transcript.jsonl"
         transcript.write_text(
             json.dumps({"role": "assistant", "content": "We can leverage this process."}) + "\n",

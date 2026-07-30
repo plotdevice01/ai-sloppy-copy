@@ -7,7 +7,7 @@
           {
             "type": "command",
             "command": "python3 \"$PLUGIN_ROOT/scripts/hook_ai_sloppy_copy.py\"",
-            "commandWindows": "python \"%PLUGIN_ROOT%\\scripts\\hook_ai_sloppy_copy.py\"",
+            "commandWindows": "if (Get-Command python -ErrorAction SilentlyContinue) { python \"$env:PLUGIN_ROOT\\scripts\\hook_ai_sloppy_copy.py\" }",
             "timeout": 10
           }
         ]
@@ -19,7 +19,7 @@
           {
             "type": "command",
             "command": "python3 \"$PLUGIN_ROOT/scripts/hook_ai_sloppy_copy.py\"",
-            "commandWindows": "python \"%PLUGIN_ROOT%\\scripts\\hook_ai_sloppy_copy.py\"",
+            "commandWindows": "if (Get-Command python -ErrorAction SilentlyContinue) { python \"$env:PLUGIN_ROOT\\scripts\\hook_ai_sloppy_copy.py\" }",
             "statusMessage": "Checking AI Sloppy Copy rules",
             "timeout": 30
           }

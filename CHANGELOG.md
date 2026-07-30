@@ -1,9 +1,17 @@
 # Changelog
 
+## 2.2.3 - 2026-07-29
+
+- Excluded HTML and XML tag structure from prose rule scanning.
+- Added regression coverage proving that an `align` attribute passes while
+  prose using the blocked term still fails.
+- Rules, evidence gates, voice gates, protected-text handling, and lifecycle
+  hooks are unchanged.
+
 ## 2.2.2 - 2026-07-29
 
 - Corrected the badge row after live GitHub rendering verification.
-- Runtime rules, hooks, and visual assets are unchanged.
+- Runtime rules and hooks are unchanged. Visual assets are also unchanged.
 
 ## 2.2.1 - 2026-07-29
 

@@ -75,6 +75,22 @@ def mask_protected_markdown(text: str) -> str:
     return "".join(masked)
 
 
+def mask_markup_tags(text: str) -> str:
+    """Mask HTML/XML structure while leaving visible prose available to scan."""
+    patterns = (
+        r"(?s)<!--.*?-->",
+        r"(?s)<\?.*?\?>",
+        r"(?s)</?[A-Za-z][^<>]*?>",
+    )
+    masked = list(text)
+    for pattern in patterns:
+        for match in re.finditer(pattern, text):
+            for index in range(match.start(), match.end()):
+                if masked[index] not in "\r\n":
+                    masked[index] = " "
+    return "".join(masked)
+
+
 def family_body(word: str) -> str:
     escaped = re.escape(word)
     forms = [escaped, rf"{escaped}(?:{FAMILY_SUFFIXES})"]
@@ -158,7 +174,8 @@ def scan_text(
         .replace("\u201c", '"')
         .replace("\u201d", '"')
     )
-    scan_value = mask_protected_markdown(normalized) if protect_markdown else normalized
+    protected = mask_protected_markdown(normalized) if protect_markdown else normalized
+    scan_value = mask_markup_tags(protected)
     allowed_terms = {value.casefold() for value in allow_terms}
     allowed_rules = {value.casefold() for value in allow_rule_ids}
     findings: list[dict[str, Any]] = []
@@ -240,6 +257,9 @@ def scan_text(
 
 
 def default_rules_path() -> Path:
+    bundled = Path(__file__).resolve().parent / "AI-Sloppy-Copy-Rules.json"
+    if bundled.is_file():
+        return bundled
     return Path(__file__).resolve().parent.parent / "dist" / "AI-Sloppy-Copy-Rules.json"
 
 

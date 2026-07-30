@@ -1,7 +1,7 @@
 {
     "standard":  {
                      "name":  "AI Sloppy Copy Standard",
-                     "version":  "2.1.0",
+                     "version":  "2.1.1",
                      "term_match":  "case-insensitive; hyphen and whitespace forms are equivalent; family datasets scan common grammatical forms and listed phrase variants",
                      "enforcement":  "hard terms and patterns block release; warnings and review rules appear in requested compliance reports",
                      "protected_text":  "fenced code, inline code, Markdown block quotes, URLs, exact allow-list entries, and approved glossary entries",

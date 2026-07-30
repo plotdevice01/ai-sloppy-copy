@@ -65,7 +65,7 @@ replacement or silently change protected text.
 | Term rules | 288 |
 | Expression rules | 21 |
 | Style rules | 34 |
-| Regression cases | 62 |
+| Regression cases | 64 |
 | Checker network calls | 0 |
 
 ## Install
@@ -104,7 +104,7 @@ codex plugin marketplace upgrade ai-sloppy-copy
 codex plugin list --json
 ```
 
-Confirm `ai-sloppy-copy@ai-sloppy-copy` is installed and enabled. Then ask:
+Confirm `ai-sloppy-copy@ai-sloppy-copy` is installed and active. Then ask:
 
 > Use AI Sloppy Copy to revise this text: We can leverage this cutting-edge
 > system to turbocharge production.

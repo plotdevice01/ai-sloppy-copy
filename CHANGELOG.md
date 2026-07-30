@@ -1,12 +1,24 @@
 # Changelog
 
+## 2.2.4 - 2026-07-29
+
+- Added a Claude Code marketplace and plugin manifest.
+- Shared hooks now resolve both Codex and Claude Code plugin roots on Windows,
+  macOS, and Linux.
+- Restored the complete standalone writing contract inside the public skill so
+  Claude Code does not depend on separate project instructions.
+- Added Claude hook regression coverage and a dual-host release archive.
+
+The Standard remains 2.1.1. No rule, evidence gate, voice gate, protected-text
+boundary, or two-pass repair behavior was removed.
+
 ## 2.2.3 - 2026-07-29
 
 - Excluded HTML and XML tag structure from prose rule scanning.
 - Added regression coverage proving that an `align` attribute passes while
   prose using the blocked term still fails.
-- Rules, evidence gates, voice gates, protected-text handling, and lifecycle
-  hooks are unchanged.
+- Rules and evidence gates are unchanged. Voice gates, protected-text handling
+  and lifecycle hooks are unchanged too.
 
 ## 2.2.2 - 2026-07-29
 

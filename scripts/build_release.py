@@ -12,10 +12,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / "plugins" / "ai-sloppy-copy"
 VERSION = json.loads((PLUGIN / ".codex-plugin/plugin.json").read_text(encoding="utf-8"))["version"]
-NAME = f"AI-Sloppy-Copy-Codex-v{VERSION}"
+NAME = f"AI-Sloppy-Copy-v{VERSION}"
 OUTPUT = ROOT / "dist" / f"{NAME}.zip"
 FILES = [
     ROOT / ".agents/plugins/marketplace.json",
+    ROOT / ".claude-plugin/marketplace.json",
     ROOT / "README.md",
     ROOT / "LICENSE",
     ROOT / "SECURITY.md",
@@ -23,6 +24,7 @@ FILES = [
     ROOT / "THIRD-PARTY-NOTICES.md",
     ROOT / "CHANGELOG.md",
     PLUGIN / ".codex-plugin/plugin.json",
+    PLUGIN / ".claude-plugin/plugin.json",
     PLUGIN / "hooks/hooks.json",
     PLUGIN / "scripts/AI-Sloppy-Copy-Rules.json",
     PLUGIN / "scripts/ai_sloppy_copy.py",

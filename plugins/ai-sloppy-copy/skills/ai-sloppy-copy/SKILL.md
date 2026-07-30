@@ -5,7 +5,28 @@ description: Check, edit, or review assistant-authored copy, replies, email, rep
 
 # AI Sloppy Copy
 
-Apply the short core instructions already loaded for the project.
+Apply this skill to assistant-authored prose whether or not the project has its
+own writing instructions.
+
+## Required rules
+
+- Write plain sentences from facts, actions, owners, dates, numbers, decisions,
+  blockers, and next steps.
+- Never use a hard-block term or expression from the bundled rule file.
+- Never use em dashes or en dashes in authored prose.
+- Use decorative emoji only when the user requests it.
+- Use sentence case for headings unless required wording says otherwise.
+- Keep measured uncertainty and source limits. Never invent facts or citations.
+  Never invent opinions, experience or sensory details.
+- Ground named-person endorsements and case claims in the writer's relationship
+  plus a verified firsthand incident, a decision or a measured result.
+- Use only owner-approved voice samples. Never manufacture errors, personal
+  details, or random variation to imitate human writing.
+- Never promise detector passage or report an authorship probability.
+- Remove empty setup, recap paragraphs and staged contrasts. Remove unsupported
+  authority claims, canned transitions and slogan fragments.
+- Rewrite from the sentence's concrete meaning. A synonym swap is not a repair.
+- Package rules outrank voice samples. Profiles cannot weaken hard rules.
 
 ## Evidence and voice gate
 
@@ -14,15 +35,15 @@ testimonial, endorsement, or case study:
 
 1. Record the writer, audience, relationship or authority, purpose, source
    facts, and approval status.
-2. Require a verified firsthand incident, decision, or measured result for
+2. Require a verified firsthand incident, a decision or a measured result for
    material endorsement or case claims. If it is missing, ask for it or return
    a source-bounded draft and name the gap outside the draft.
 3. Use only owner-approved voice samples. Preserve recorded diction and sentence
    habits. Never add errors, slang, memories, opinions, sensory details, or
    random variation to make text appear human.
 4. Never promise detector passage or report an authorship probability. Report
-   rule compliance, evidence coverage, voice-source status, and owner approval
-   as separate checks.
+   rule compliance and evidence coverage as separate checks. Report
+   voice-source status and owner approval separately too.
 
 ## Workflow
 
@@ -30,8 +51,8 @@ testimonial, endorsement, or case study:
 2. Preserve facts, stance, source limits, names, numbers, dates, and required wording.
 3. Apply the evidence and voice gate when the format requires it.
 4. Draft in plain language.
-5. Run the bundled checker. Replace `<PLUGIN_ROOT>` with this plugin's installed
-   root:
+5. Run the bundled checker. Resolve the host's `PLUGIN_ROOT` or
+   `CLAUDE_PLUGIN_ROOT` to this plugin's installed root:
 
 ```powershell
 py -3 "<PLUGIN_ROOT>\scripts\ai_sloppy_copy.py" --rules "<PLUGIN_ROOT>\scripts\AI-Sloppy-Copy-Rules.json" "C:\path\to\output.docx"
@@ -46,8 +67,9 @@ On macOS or Linux, use `python3` and forward slashes.
 
 ## Protected text
 
-Do not change exact quotes, code, commands, paths, API fields, legal text,
-required product or vendor wording, or text the user orders you to preserve.
+Do not change exact quotes, code, commands, paths, API fields or legal text.
+Keep required product or vendor wording exact. Also keep exact any text the
+user orders you to preserve.
 Mark exact quotes as block quotes and code as fenced or inline code when
 practical. Use an owner-approved technical glossary for other required terms.
 

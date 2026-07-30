@@ -30,17 +30,27 @@ def load_checker():
 
 def main() -> None:
     marketplace = json.loads((ROOT / ".agents/plugins/marketplace.json").read_text(encoding="utf-8"))
+    claude_marketplace = json.loads((ROOT / ".claude-plugin/marketplace.json").read_text(encoding="utf-8"))
     manifest = json.loads((PLUGIN / ".codex-plugin/plugin.json").read_text(encoding="utf-8"))
+    claude_manifest = json.loads((PLUGIN / ".claude-plugin/plugin.json").read_text(encoding="utf-8"))
     hooks = json.loads((PLUGIN / "hooks/hooks.json").read_text(encoding="utf-8"))
 
     assert marketplace["name"] == "ai-sloppy-copy"
     assert marketplace["plugins"][0]["source"]["path"] == "./plugins/ai-sloppy-copy"
     assert manifest["name"] == "ai-sloppy-copy"
-    assert manifest["version"] == "2.2.3"
+    assert manifest["version"] == "2.2.4"
+    assert claude_marketplace["name"] == "ai-sloppy-copy"
+    assert claude_marketplace["plugins"][0]["source"] == "./plugins/ai-sloppy-copy"
+    assert claude_manifest["name"] == "ai-sloppy-copy"
+    assert claude_manifest["version"] == manifest["version"]
+    assert claude_manifest["hooks"] == "./hooks/hooks.json"
     assert set(hooks["hooks"]) == {"UserPromptSubmit", "Stop"}
     for event in hooks["hooks"].values():
         command = event[0]["hooks"][0]["commandWindows"]
-        assert "$env:PLUGIN_ROOT" in command and "%PLUGIN_ROOT%" not in command
+        command_unix = event[0]["hooks"][0]["command"]
+        assert "$env:PLUGIN_ROOT" in command and "$env:CLAUDE_PLUGIN_ROOT" in command
+        assert "PLUGIN_ROOT" in command_unix and "CLAUDE_PLUGIN_ROOT" in command_unix
+        assert "%PLUGIN_ROOT%" not in command
 
     interface = manifest["interface"]
     asset_paths = [
@@ -135,6 +145,23 @@ def main() -> None:
         payload = json.loads(result.stdout)
         assert payload["continue"] is False
         assert "TERM-" in payload["stopReason"]
+
+        claude = subprocess.run(
+            [sys.executable, str(SCRIPTS / "hook_ai_sloppy_copy.py")],
+            input=json.dumps(
+                {
+                    "session_id": "public-claude-runtime-test",
+                    "hook_event_name": "Stop",
+                    "last_assistant_message": "We can leverage this process.",
+                }
+            ),
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+        claude_payload = json.loads(claude.stdout)
+        assert claude_payload["decision"] == "block"
+        assert "TERM-" in claude_payload["reason"]
 
     public_text = "\n".join(
         path.read_text(encoding="utf-8", errors="ignore")

@@ -1,0 +1,13 @@
+{
+  "name": "ai-sloppy-copy",
+  "version": "2.2.4",
+  "description": "Builds evidence-backed prose in an approved voice and checks it against the AI Sloppy Copy Standard.",
+  "author": {
+    "name": "plotdevice01",
+    "url": "https://github.com/plotdevice01"
+  },
+  "homepage": "https://github.com/plotdevice01/ai-sloppy-copy",
+  "repository": "https://github.com/plotdevice01/ai-sloppy-copy",
+  "license": "MIT",
+  "hooks": "./hooks/hooks.json"
+}

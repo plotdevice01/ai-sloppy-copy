@@ -7,23 +7,24 @@
 </h1>
 
 <p align="center">
-  Copy guardrails for Codex: verify the claim, protect exact text, match the
-  approved voice, and stop blocked phrasing before release.
+  Copy guardrails for Codex and Claude Code: verify the claim, protect exact
+  text, match the approved voice, and stop blocked phrasing before release.
 </p>
 
-<p align="center"><a href="https://github.com/plotdevice01/ai-sloppy-copy/actions/workflows/validate.yml"><img alt="CI status" src="https://github.com/plotdevice01/ai-sloppy-copy/actions/workflows/validate.yml/badge.svg"></a> <a href="https://github.com/plotdevice01/ai-sloppy-copy/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/plotdevice01/ai-sloppy-copy"></a> <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0f766e.svg"></a> <img alt="Python standard library" src="https://img.shields.io/badge/Python-stdlib_only-3776AB.svg"> <img alt="Local checker with no telemetry" src="https://img.shields.io/badge/checker-local_only-14b8a6.svg"></p>
+<p align="center"><a href="https://github.com/plotdevice01/ai-sloppy-copy/actions/workflows/validate.yml"><img alt="CI status" src="https://github.com/plotdevice01/ai-sloppy-copy/actions/workflows/validate.yml/badge.svg"></a> <a href="https://github.com/plotdevice01/ai-sloppy-copy/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/plotdevice01/ai-sloppy-copy"></a> <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0f766e.svg"></a> <img alt="Codex and Claude Code" src="https://img.shields.io/badge/hosts-Codex_%2B_Claude_Code-0f766e.svg"> <img alt="Python standard library" src="https://img.shields.io/badge/Python-stdlib_only-3776AB.svg"> <img alt="Local checker with no telemetry" src="https://img.shields.io/badge/checker-local_only-14b8a6.svg"></p>
 
 <p align="center">
-  <a href="#install">Install</a> ·
-  <a href="#see-it-work">Example</a> ·
-  <a href="#what-it-enforces">Rules</a> ·
-  <a href="#use-the-checker-directly">CLI</a> ·
+  <a href="#install">Install</a> |
+  <a href="#see-it-work">Example</a> |
+  <a href="#what-it-enforces">Rules</a> |
+  <a href="#use-the-checker-directly">CLI</a> |
   <a href="#privacy-and-security">Security</a>
 </p>
 
-AI Sloppy Copy is a Codex plugin and deterministic local checker. It catches
-prohibited model-written patterns, applies evidence and voice controls, and
-returns exact rule IDs for repair. The operator keeps final approval.
+AI Sloppy Copy is a Codex and Claude Code plugin with a deterministic local
+checker. It catches prohibited model-written patterns, applies evidence and
+voice controls, and returns exact rule IDs for repair. The operator keeps final
+approval.
 
 It does **not** identify who wrote text or promise AI-detector results. Rule
 compliance and authorship are different questions.
@@ -70,11 +71,12 @@ replacement or silently change protected text.
 
 ## Install
 
-You need [Codex](https://developers.openai.com/codex/) with plugin support and
-[Python 3](https://www.python.org/downloads/). No repository clone, local path,
-or checksum ceremony is required.
+You need [Python 3](https://www.python.org/downloads/) plus
+[Codex](https://developers.openai.com/codex/) or
+[Claude Code](https://code.claude.com/docs/en/setup). No repository clone,
+local path, or checksum ceremony is required.
 
-### 1. Add the marketplace and plugin
+### Codex
 
 Open a terminal. Windows users can use PowerShell or the Codex terminal. Run
 each command once:
@@ -90,21 +92,29 @@ If Codex says the marketplace already exists, update it:
 codex plugin marketplace upgrade ai-sloppy-copy
 ```
 
-### 2. Restart and trust the hooks
-
-1. Restart Codex or start a new `codex` session.
-2. Open `/hooks`.
-3. Review and trust the `UserPromptSubmit` and `Stop` hooks from
-   `ai-sloppy-copy`.
-4. Start a new Codex task.
-
-### 3. Confirm the install
+Restart Codex, open `/hooks`, review `UserPromptSubmit` and `Stop`, and start a
+fresh task. Confirm the plugin:
 
 ```powershell
 codex plugin list --json
 ```
 
-Confirm `ai-sloppy-copy@ai-sloppy-copy` is installed and active. Then ask:
+### Claude Code
+
+```powershell
+claude plugin marketplace add plotdevice01/ai-sloppy-copy
+claude plugin install ai-sloppy-copy@ai-sloppy-copy --scope user
+```
+
+Start Claude Code, run `/reload-plugins`, review `/hooks`, and start a fresh
+session. Confirm the plugin:
+
+```powershell
+claude plugin list --json
+```
+
+For either host, confirm `ai-sloppy-copy@ai-sloppy-copy` is installed and
+active. Then ask:
 
 > Use AI Sloppy Copy to revise this text: We can leverage this cutting-edge
 > system to turbocharge production.
@@ -117,9 +127,10 @@ into application folders manually.
 
 ![Verified sources and approved voice move through the local checker before human approval.](plugins/ai-sloppy-copy/assets/workflow.svg)
 
-The Codex skill applies the writing contract. Lifecycle hooks inspect prompts
-and completed responses. The Python checker handles repeatable file scans.
-Protected text and human approval remain explicit boundaries.
+The shared skill applies the writing contract. Both host protocols use the same
+hooks and checker against the same 2.1.1 rule file. The Python checker handles
+repeatable file scans. Protected text and human approval remain explicit
+boundaries.
 
 ## Use the checker directly
 
@@ -146,11 +157,21 @@ codex plugin remove ai-sloppy-copy
 codex plugin add ai-sloppy-copy@ai-sloppy-copy
 ```
 
+```powershell
+claude plugin marketplace update ai-sloppy-copy
+claude plugin update ai-sloppy-copy@ai-sloppy-copy
+```
+
 Remove:
 
 ```powershell
 codex plugin remove ai-sloppy-copy
 codex plugin marketplace remove ai-sloppy-copy
+```
+
+```powershell
+claude plugin uninstall ai-sloppy-copy@ai-sloppy-copy
+claude plugin marketplace remove ai-sloppy-copy
 ```
 
 ## Chief of Staff stack
@@ -162,7 +183,7 @@ installation. Its guide installs the complete companion stack in order.
 ## Privacy and security
 
 The checker runs locally. The plugin has no connectors, accounts, telemetry, or
-network calls. Its hooks receive Codex hook data and write only a temporary
+network calls. Its hooks receive host hook data and write only a temporary
 per-session retry counter.
 
 Do not put secrets or private client text into custom rule datasets. Report a
@@ -175,6 +196,7 @@ See [SECURITY.md](SECURITY.md) for the support policy.
 
 ```powershell
 python tests/test_runtime.py
+claude plugin validate .
 python scripts/build_release.py
 ```
 

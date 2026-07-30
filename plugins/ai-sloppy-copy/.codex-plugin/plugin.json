@@ -1,6 +1,6 @@
 {
   "name": "ai-sloppy-copy",
-  "version": "2.2.3",
+  "version": "2.2.4",
   "description": "Builds evidence-backed prose in an approved voice and checks it against the AI Sloppy Copy Standard.",
   "author": {
     "name": "plotdevice01",
@@ -9,7 +9,7 @@
   "homepage": "https://github.com/plotdevice01/ai-sloppy-copy",
   "repository": "https://github.com/plotdevice01/ai-sloppy-copy",
   "license": "MIT",
-  "keywords": ["writing", "copy-editing", "evidence", "voice", "codex"],
+  "keywords": ["writing", "copy-editing", "evidence", "voice", "codex", "claude-code"],
   "skills": "./skills/",
   "interface": {
     "displayName": "AI Sloppy Copy",

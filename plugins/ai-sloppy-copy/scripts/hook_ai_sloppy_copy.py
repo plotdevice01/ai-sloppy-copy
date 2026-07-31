@@ -8,6 +8,7 @@ import json
 import os
 import sys
 import tempfile
+from collections.abc import Iterator
 from pathlib import Path
 from typing import Any
 
@@ -78,20 +79,39 @@ def assistant_messages(value: Any) -> list[str]:
     return found
 
 
+def reversed_jsonl_lines(path: Path, block_size: int = 64 * 1024) -> Iterator[str]:
+    """Yield complete JSONL lines newest first without reading the whole file."""
+    with path.open("rb") as handle:
+        handle.seek(0, os.SEEK_END)
+        position = handle.tell()
+        pending = b""
+        while position:
+            size = min(block_size, position)
+            position -= size
+            handle.seek(position)
+            parts = (handle.read(size) + pending).split(b"\n")
+            pending = parts[0]
+            for line in reversed(parts[1:]):
+                if line.strip():
+                    yield line.decode("utf-8", errors="replace")
+        if pending.strip():
+            yield pending.decode("utf-8", errors="replace")
+
+
 def last_codex_message(transcript_path: str | None) -> str:
     if not transcript_path:
         return ""
     path = Path(transcript_path)
     if not path.is_file():
         return ""
-    found: list[str] = []
-    with path.open("r", encoding="utf-8", errors="replace") as handle:
-        for line in handle:
-            try:
-                found.extend(assistant_messages(json.loads(line)))
-            except json.JSONDecodeError:
-                continue
-    return found[-1] if found else ""
+    for line in reversed_jsonl_lines(path):
+        try:
+            found = assistant_messages(json.loads(line))
+        except json.JSONDecodeError:
+            continue
+        if found:
+            return found[-1]
+    return ""
 
 
 def emit(value: dict[str, Any]) -> None:

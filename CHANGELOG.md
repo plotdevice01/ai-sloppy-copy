@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.2.6 - 2026-07-30
+
+- Changed the Codex Stop hook to read JSONL transcripts from the end and stop
+  at the newest assistant message instead of reparsing the full task history.
+- Preserved Claude direct-message handling, every copy rule, the two-repair
+  limit, state reset, and Codex/Claude block responses.
+- Added regression coverage for malformed trailing JSON; missing final
+  newlines; block boundaries; and assistant messages larger than 64 KiB.
+
 ## 2.2.5 - 2026-07-29
 
 - Fixed `--text` parsing on Python 3.10 and 3.11 by validating input modes
@@ -12,8 +21,8 @@ No copy rule, evidence control, voice control or hook behavior changed.
 ## 2.2.4 - 2026-07-29
 
 - Added a Claude Code marketplace and plugin manifest.
-- Shared hooks now resolve both Codex and Claude Code plugin roots on Windows,
-  macOS, and Linux.
+- Shared hooks now resolve both Codex and Claude Code plugin roots on Windows
+  plus macOS/Linux.
 - Restored the complete standalone writing contract inside the public skill so
   Claude Code does not depend on separate project instructions.
 - Added Claude hook regression coverage and a dual-host release archive.

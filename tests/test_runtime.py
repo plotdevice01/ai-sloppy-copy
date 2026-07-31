@@ -28,6 +28,17 @@ def load_checker():
     return module
 
 
+def load_hook():
+    spec = importlib.util.spec_from_file_location(
+        "hook_ai_sloppy_copy", SCRIPTS / "hook_ai_sloppy_copy.py"
+    )
+    assert spec and spec.loader
+    module = importlib.util.module_from_spec(spec)
+    sys.modules["hook_ai_sloppy_copy"] = module
+    spec.loader.exec_module(module)
+    return module
+
+
 def main() -> None:
     marketplace = json.loads((ROOT / ".agents/plugins/marketplace.json").read_text(encoding="utf-8"))
     claude_marketplace = json.loads((ROOT / ".claude-plugin/marketplace.json").read_text(encoding="utf-8"))
@@ -38,7 +49,7 @@ def main() -> None:
     assert marketplace["name"] == "ai-sloppy-copy"
     assert marketplace["plugins"][0]["source"]["path"] == "./plugins/ai-sloppy-copy"
     assert manifest["name"] == "ai-sloppy-copy"
-    assert manifest["version"] == "2.2.5"
+    assert manifest["version"] == "2.2.6"
     assert claude_marketplace["name"] == "ai-sloppy-copy"
     assert claude_marketplace["plugins"][0]["source"] == "./plugins/ai-sloppy-copy"
     assert claude_manifest["name"] == "ai-sloppy-copy"
@@ -79,6 +90,7 @@ def main() -> None:
         assert (ROOT / relative).is_file(), relative
 
     checker = load_checker()
+    hook = load_hook()
     rules = checker.load_rules(RULES)
     cli_fail = subprocess.run(
         [sys.executable, str(SCRIPTS / "ai_sloppy_copy.py"), "--text", "We need to align the stakeholders."],
@@ -136,6 +148,27 @@ def main() -> None:
         )
         assert json.loads(reset.stdout) == {}
         transcript = Path(folder) / "transcript.jsonl"
+        large = "x" * 70000 + " latest assistant message"
+        transcript.write_text(
+            "\n".join(
+                [
+                    json.dumps({"role": "assistant", "content": "old"}),
+                    json.dumps({"role": "user", "content": "new prompt"}),
+                    json.dumps({"role": "assistant", "content": large}),
+                    '{"malformed":',
+                ]
+            ),
+            encoding="utf-8",
+        )
+        assert hook.last_codex_message(str(transcript)) == large
+        reverse_fixture = Path(folder) / "reverse.jsonl"
+        reverse_fixture.write_bytes(b"first\nsecond\nthird")
+        assert list(hook.reversed_jsonl_lines(reverse_fixture, block_size=4)) == [
+            "third",
+            "second",
+            "first",
+        ]
+
         transcript.write_text(
             json.dumps({"role": "assistant", "content": "We can leverage this process."}) + "\n",
             encoding="utf-8",

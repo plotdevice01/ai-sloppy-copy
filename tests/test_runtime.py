@@ -17,6 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / "plugins" / "ai-sloppy-copy"
 SCRIPTS = PLUGIN / "scripts"
 RULES = SCRIPTS / "AI-Sloppy-Copy-Rules.json"
+VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+MANIFEST_VERSION = f"{VERSION}.0"
 
 
 def load_checker():
@@ -49,7 +51,8 @@ def main() -> None:
     assert marketplace["name"] == "ai-sloppy-copy"
     assert marketplace["plugins"][0]["source"]["path"] == "./plugins/ai-sloppy-copy"
     assert manifest["name"] == "ai-sloppy-copy"
-    assert manifest["version"] == "2.2.6"
+    assert VERSION == "0.3"
+    assert manifest["version"] == MANIFEST_VERSION
     assert claude_marketplace["name"] == "ai-sloppy-copy"
     assert claude_marketplace["plugins"][0]["source"] == "./plugins/ai-sloppy-copy"
     assert claude_manifest["name"] == "ai-sloppy-copy"

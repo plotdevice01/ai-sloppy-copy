@@ -17,6 +17,7 @@ jobs:
         with:
           python-version: "3.12"
       - run: python tests/test_runtime.py
+      - run: test "${GITHUB_REF_NAME#v}" = "$(cat VERSION)"
       - run: python scripts/build_release.py
       - name: Publish GitHub release
         env:

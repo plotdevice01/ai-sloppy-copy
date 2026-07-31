@@ -29,6 +29,17 @@ approval.
 It does **not** identify who wrote text or promise AI-detector results. Rule
 compliance and authorship are different questions.
 
+## What changed in v0.3
+
+- Public release numbering resets from `2.2.6` to `0.3`. The project remains
+  pre-1.0, and one-decimal milestones make that status clearer.
+- `0.3` succeeds and fully contains `2.2.6`; this is not a rollback. All 288
+  term rules, 21 expression rules, 34 style rules, 64 regression cases,
+  evidence gates, voice gates, protected-text controls, and hooks remain.
+- Codex and Claude Code manifests use `0.3.0` because both hosts require strict
+  three-part semantic versions. The public release, tag, docs, and ZIP use
+  `0.3`.
+
 ## See it work
 
 ![A generic draft is flagged and repaired with specific language.](plugins/ai-sloppy-copy/assets/before-after.svg)
@@ -73,8 +84,8 @@ replacement or silently change protected text.
 
 You need [Python 3](https://www.python.org/downloads/) plus
 [Codex](https://developers.openai.com/codex/) or
-[Claude Code](https://code.claude.com/docs/en/setup). No repository clone,
-local path, or checksum ceremony is required.
+[Claude Code](https://code.claude.com/docs/en/setup). No repository clone is
+required. No local path or checksum ceremony is required.
 
 ### Codex
 
@@ -92,6 +103,15 @@ If Codex says the marketplace already exists, update it:
 codex plugin marketplace upgrade ai-sloppy-copy
 ```
 
+If you already have `2.2.6`, reinstall once. Semantic-version updaters
+correctly but unhelpfully sort `0.3.0` below `2.2.6`:
+
+```powershell
+codex plugin remove ai-sloppy-copy
+codex plugin marketplace upgrade ai-sloppy-copy
+codex plugin add ai-sloppy-copy@ai-sloppy-copy
+```
+
 Restart Codex, open `/hooks`, review `UserPromptSubmit` and `Stop`, and start a
 fresh task. Confirm the plugin:
 
@@ -103,6 +123,14 @@ codex plugin list --json
 
 ```powershell
 claude plugin marketplace add plotdevice01/ai-sloppy-copy
+claude plugin install ai-sloppy-copy@ai-sloppy-copy --scope user
+```
+
+If you already have `2.2.6`, reinstall once:
+
+```powershell
+claude plugin uninstall ai-sloppy-copy@ai-sloppy-copy
+claude plugin marketplace update ai-sloppy-copy
 claude plugin install ai-sloppy-copy@ai-sloppy-copy --scope user
 ```
 

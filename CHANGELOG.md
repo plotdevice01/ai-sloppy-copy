@@ -1,11 +1,35 @@
 # Changelog
 
+## 0.3 - 2026-07-30
+
+### Changed
+
+- Reset public release numbering from `2.2.6` to `0.3`. The project is still
+  pre-1.0, and one-decimal milestones now communicate that status directly.
+- `0.3` is the successor to, and fully contains, `2.2.6`; the lower number is
+  a numbering reset, not a code, rule, or capability rollback.
+
+### Compatibility
+
+- Codex and Claude Code manifests use `0.3.0` because their plugin formats
+  require strict three-part semantic versions. The public release, Git tag,
+  documentation, and ZIP use `0.3`.
+- Existing `2.2.6` installations require one remove/reinstall cycle because
+  semantic-version updaters sort `0.3.0` below `2.2.6`.
+
+### Preserved
+
+- All 288 term rules, 21 expression rules, 34 style rules and 64 regression
+  cases.
+- Evidence and voice gates, protected-text controls, the two-pass repair limit
+  and Codex/Claude hooks.
+
 ## 2.2.6 - 2026-07-30
 
 - Changed the Codex Stop hook to read JSONL transcripts from the end and stop
   at the newest assistant message instead of reparsing the full task history.
-- Preserved Claude direct-message handling, every copy rule, the two-repair
-  limit, state reset, and Codex/Claude block responses.
+- Preserved Claude direct-message handling and every copy rule.
+- Preserved the two-repair limit, state reset and Codex/Claude block responses.
 - Added regression coverage for malformed trailing JSON; missing final
   newlines; block boundaries; and assistant messages larger than 64 KiB.
 

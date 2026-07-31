@@ -11,12 +11,14 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 PLUGIN = ROOT / "plugins" / "ai-sloppy-copy"
-VERSION = json.loads((PLUGIN / ".codex-plugin/plugin.json").read_text(encoding="utf-8"))["version"]
+VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
+MANIFEST_VERSION = f"{VERSION}.0"
 NAME = f"AI-Sloppy-Copy-v{VERSION}"
 OUTPUT = ROOT / "dist" / f"{NAME}.zip"
 FILES = [
     ROOT / ".agents/plugins/marketplace.json",
     ROOT / ".claude-plugin/marketplace.json",
+    ROOT / "VERSION",
     ROOT / "README.md",
     ROOT / "LICENSE",
     ROOT / "SECURITY.md",
@@ -35,6 +37,13 @@ FILES = [
 
 
 def build(output: Path = OUTPUT) -> str:
+    manifest_version = json.loads(
+        (PLUGIN / ".codex-plugin/plugin.json").read_text(encoding="utf-8")
+    )["version"]
+    if manifest_version != MANIFEST_VERSION:
+        raise RuntimeError(
+            f"Plugin manifest is {manifest_version}; expected {MANIFEST_VERSION}."
+        )
     output.parent.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_STORED) as archive:
         for path in FILES:

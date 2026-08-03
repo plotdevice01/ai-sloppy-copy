@@ -51,13 +51,13 @@ def main() -> None:
     assert marketplace["name"] == "ai-sloppy-copy"
     assert marketplace["plugins"][0]["source"]["path"] == "./plugins/ai-sloppy-copy"
     assert manifest["name"] == "ai-sloppy-copy"
-    assert VERSION == "0.3"
+    assert VERSION == "0.4"
     assert manifest["version"] == MANIFEST_VERSION
     assert claude_marketplace["name"] == "ai-sloppy-copy"
     assert claude_marketplace["plugins"][0]["source"] == "./plugins/ai-sloppy-copy"
     assert claude_manifest["name"] == "ai-sloppy-copy"
     assert claude_manifest["version"] == manifest["version"]
-    assert claude_manifest["hooks"] == "./hooks/hooks.json"
+    assert "hooks" not in claude_manifest
     assert set(hooks["hooks"]) == {"UserPromptSubmit", "Stop"}
     for event in hooks["hooks"].values():
         command = event[0]["hooks"][0]["commandWindows"]
@@ -95,6 +95,25 @@ def main() -> None:
     checker = load_checker()
     hook = load_hook()
     rules = checker.load_rules(RULES)
+    assert rules["standard"]["version"] == "2.2.0"
+    ad_rules = [item for item in rules["style_rules"] if item["rule_id"].startswith("ADS-")]
+    assert [item["rule_id"] for item in ad_rules] == [f"ADS-{number:03d}" for number in range(1, 8)]
+    assert all(item["reviewer_only"] and item["enforcement"] == "review" for item in ad_rules)
+    ad_cases = json.loads((ROOT / "tests/ad-framework-cases.json").read_text(encoding="utf-8"))
+    assert len(ad_cases) == 9
+    disabled_ad_cases = [case for case in ad_cases if not case["activate_paid_ad_mode"]]
+    assert [case["id"] for case in disabled_ad_cases] == ["SPEND-REPORT"]
+    skill_text = (PLUGIN / "skills/ai-sloppy-copy/SKILL.md").read_text(encoding="utf-8")
+    skill_flat = " ".join(skill_text.split())
+    for required in (
+        "## Paid ad mode",
+        "Hook or Callout",
+        "keep one CTA fixed",
+        "three to five Value blocks",
+        "only mentions ads or ad spend",
+        "paid-media usage rights",
+    ):
+        assert required in skill_flat, required
     cli_fail = subprocess.run(
         [sys.executable, str(SCRIPTS / "ai_sloppy_copy.py"), "--text", "We need to align the stakeholders."],
         text=True,
@@ -194,11 +213,25 @@ def main() -> None:
         assert payload["continue"] is False
         assert "TERM-" in payload["stopReason"]
 
+        claude_session = "public-claude-runtime-test"
+        claude_reset = subprocess.run(
+            [sys.executable, str(SCRIPTS / "hook_ai_sloppy_copy.py")],
+            input=json.dumps(
+                {
+                    "session_id": claude_session,
+                    "hook_event_name": "UserPromptSubmit",
+                }
+            ),
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+        assert json.loads(claude_reset.stdout) == {}
         claude = subprocess.run(
             [sys.executable, str(SCRIPTS / "hook_ai_sloppy_copy.py")],
             input=json.dumps(
                 {
-                    "session_id": "public-claude-runtime-test",
+                    "session_id": claude_session,
                     "hook_event_name": "Stop",
                     "last_assistant_message": "We can leverage this process.",
                 }
@@ -210,6 +243,9 @@ def main() -> None:
         claude_payload = json.loads(claude.stdout)
         assert claude_payload["decision"] == "block"
         assert "TERM-" in claude_payload["reason"]
+        assert 'matched "leverage"' in claude_payload["reason"]
+        assert "concrete information" in claude_payload["reason"]
+        assert "complete corrected deliverable only" in claude_payload["reason"]
 
     public_text = "\n".join(
         path.read_text(encoding="utf-8", errors="ignore")
@@ -227,7 +263,10 @@ def main() -> None:
     )
     assert not [value for value in forbidden if value.casefold() in public_text.casefold()]
 
-    print(f"PASS: {len(cases)} cases, manifests, hooks, and public-data scan.")
+    print(
+        f"PASS: {len(cases)} writing cases and {len(ad_cases)} paid-ad scenarios, "
+        "manifests, hooks, and public-data scan."
+    )
 
 
 if __name__ == "__main__":

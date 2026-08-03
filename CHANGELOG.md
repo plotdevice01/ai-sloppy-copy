@@ -1,19 +1,60 @@
 # Changelog
 
+## 0.4 - 2026-08-02
+
+### Added
+
+- Added paid-ad mode for ad copy and creative on any advertising platform.
+- Added the required Hook or Callout, Value, and Direct CTA structure.
+- Added Problem and Promise, Mechanism and verified Proof, then Offer Snapshot
+  and Risk as the ordered Value blocks.
+- Added campaign CTA locking, three to five Value blocks, hook banks, and
+  module-only output rules.
+- Added evidence controls for offer facts, proof, testimonials, urgency,
+  platform limits, and paid-media usage rights.
+- Added a supplied-facts-only boundary for product behavior and delivery method.
+  Automation and compatibility cannot be inferred. Workflow or customer-result
+  claims also require supplied verification.
+- Added a duration boundary. A call length cannot become a delivery time or a
+  promised result unless that connection is supplied and verified.
+- Added nine paid-ad acceptance scenarios, including the ad-spend reporting
+  guard.
+- Added bounded repair context to the first two Stop-hook retries. The message
+  now includes the matched text plus its repair action. The third failure still
+  returns rule IDs only.
+- Removed the redundant Claude manifest hook declaration. Claude Code 2.1.140
+  loads the standard hooks file automatically and reports the explicit entry as
+  a duplicate.
+
+### Compatibility
+
+- Public release `0.4` contains AI Sloppy Copy Standard `2.2.0`.
+- Codex and Claude Code manifests use `0.4.0`. The public release uses `0.4`.
+  The Git tag matches it. Documentation and the ZIP use it too.
+
+### Preserved
+
+- All 288 term rules and 21 expression rules remain. The 34 existing style
+  rules and 64 writing regression cases remain too.
+- Protected-text controls remain. Evidence and voice gates remain, along with
+  the hooks and two-pass repair limit.
+- The stop hook remains deterministic. Context-dependent ad review stays in the
+  skill instead of being reduced to unsafe text matching.
+
 ## 0.3 - 2026-07-30
 
 ### Changed
 
 - Reset public release numbering from `2.2.6` to `0.3`. The project is still
   pre-1.0, and one-decimal milestones now communicate that status directly.
-- `0.3` is the successor to, and fully contains, `2.2.6`; the lower number is
-  a numbering reset, not a code, rule, or capability rollback.
+- `0.3` is the successor to `2.2.6` and fully contains it. The lower number is
+  a numbering reset, not a rollback of code or rules. Capabilities remain.
 
 ### Compatibility
 
 - Codex and Claude Code manifests use `0.3.0` because their plugin formats
-  require strict three-part semantic versions. The public release, Git tag,
-  documentation, and ZIP use `0.3`.
+  require strict three-part semantic versions. The public release uses `0.3`.
+  The Git tag matches it. Documentation and the ZIP use it too.
 - Existing `2.2.6` installations require one remove/reinstall cycle because
   semantic-version updaters sort `0.3.0` below `2.2.6`.
 

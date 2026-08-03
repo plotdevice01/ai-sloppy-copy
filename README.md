@@ -7,8 +7,8 @@
 </h1>
 
 <p align="center">
-  Copy guardrails for Codex and Claude Code: verify the claim, protect exact
-  text, match the approved voice, and stop blocked phrasing before release.
+  Copy and paid-ad guardrails for Codex and Claude Code: verify the claim,
+  protect exact text, match the approved voice, and stop blocked phrasing.
 </p>
 
 <p align="center"><a href="https://github.com/plotdevice01/ai-sloppy-copy/actions/workflows/validate.yml"><img alt="CI status" src="https://github.com/plotdevice01/ai-sloppy-copy/actions/workflows/validate.yml/badge.svg"></a> <a href="https://github.com/plotdevice01/ai-sloppy-copy/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/plotdevice01/ai-sloppy-copy"></a> <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0f766e.svg"></a> <img alt="Codex and Claude Code" src="https://img.shields.io/badge/hosts-Codex_%2B_Claude_Code-0f766e.svg"> <img alt="Python standard library" src="https://img.shields.io/badge/Python-stdlib_only-3776AB.svg"> <img alt="Local checker with no telemetry" src="https://img.shields.io/badge/checker-local_only-14b8a6.svg"></p>
@@ -23,22 +23,28 @@
 
 AI Sloppy Copy is a Codex and Claude Code plugin with a deterministic local
 checker. It catches prohibited model-written patterns, applies evidence and
-voice controls, and returns exact rule IDs for repair. The operator keeps final
-approval.
+voice controls, preserves paid-ad structure, and returns exact rule IDs for
+repair. The operator keeps final approval.
 
 It does **not** identify who wrote text or promise AI-detector results. Rule
 compliance and authorship are different questions.
 
-## What changed in v0.3
+## What changed in v0.4
 
-- Public release numbering resets from `2.2.6` to `0.3`. The project remains
-  pre-1.0, and one-decimal milestones make that status clearer.
-- `0.3` succeeds and fully contains `2.2.6`; this is not a rollback. All 288
-  term rules, 21 expression rules, 34 style rules, 64 regression cases,
-  evidence gates, voice gates, protected-text controls, and hooks remain.
-- Codex and Claude Code manifests use `0.3.0` because both hosts require strict
-  three-part semantic versions. The public release, tag, docs, and ZIP use
-  `0.3`.
+- Added a universal paid-ad mode for Meta, TikTok, Google Ads, YouTube,
+  LinkedIn, X, Reddit, Pinterest, Snapchat, Amazon, and other ad platforms.
+- Complete ads preserve a Hook or Callout. They also preserve ordered Value
+  blocks plus one Direct CTA. Campaigns keep the CTA fixed while testing three
+  to five Value blocks and a larger hook bank.
+- Proof and results stay evidence-gated. The same gate covers testimonials and
+  urgency. It also covers offer facts and platform limits. Paid-media usage
+  rights require separate confirmation.
+- Ads may use only supplied, verified facts. Product behavior and delivery
+  method cannot be inferred. Automation or compatibility claims also require
+  support.
+- Reporting that merely mentions ads or ad spend does not trigger an ad layout.
+- Public release `0.4` contains AI Sloppy Copy Standard `2.2.0`. Host manifests
+  use `0.4.0` because plugin formats require three-part semantic versions.
 
 ## See it work
 
@@ -66,6 +72,8 @@ replacement or silently change protected text.
 | Control | Result |
 | --- | --- |
 | Evidence gates | Unsupported recommendations, testimonials, case studies, and claims require a verified basis. |
+| Paid-ad structure | Complete ads preserve a Hook or Callout. They also preserve ordered Value plus one Direct CTA. |
+| Campaign controls | One CTA stays fixed while hooks and three to five Value blocks are tested. |
 | Approved voice | Named-person copy requires owner-approved voice samples. |
 | Protected text | Quotes, code, commands, paths, IDs, legal text, and required vendor wording stay exact. |
 | Hard rules | Banned terms and prohibited expressions block release. |
@@ -76,8 +84,9 @@ replacement or silently change protected text.
 | --- | ---: |
 | Term rules | 288 |
 | Expression rules | 21 |
-| Style rules | 34 |
+| Style rules | 41 |
 | Regression cases | 64 |
+| Paid-ad scenarios | 9 |
 | Checker network calls | 0 |
 
 ## Install
@@ -103,8 +112,9 @@ If Codex says the marketplace already exists, update it:
 codex plugin marketplace upgrade ai-sloppy-copy
 ```
 
-If you already have `2.2.6`, reinstall once. Semantic-version updaters
-correctly but unhelpfully sort `0.3.0` below `2.2.6`:
+If you still have a legacy `2.2.6` installation, reinstall once.
+Semantic-version updaters correctly but unhelpfully sort `0.4.0` below
+`2.2.6`:
 
 ```powershell
 codex plugin remove ai-sloppy-copy
@@ -126,7 +136,7 @@ claude plugin marketplace add plotdevice01/ai-sloppy-copy
 claude plugin install ai-sloppy-copy@ai-sloppy-copy --scope user
 ```
 
-If you already have `2.2.6`, reinstall once:
+If you still have a legacy `2.2.6` installation, reinstall once:
 
 ```powershell
 claude plugin uninstall ai-sloppy-copy@ai-sloppy-copy
@@ -142,10 +152,21 @@ claude plugin list --json
 ```
 
 For either host, confirm `ai-sloppy-copy@ai-sloppy-copy` is installed and
-active. Then ask:
+active.
+
+In Codex, ask:
 
 > Use AI Sloppy Copy to revise this text: We can leverage this cutting-edge
 > system to turbocharge production.
+
+In Claude Code, use the plugin's namespaced skill command:
+
+```text
+/ai-sloppy-copy:ai-sloppy-copy
+
+Revise this text: We can leverage this cutting-edge system to turbocharge
+production.
+```
 
 The response should replace the flagged phrases with specific wording. If the
 plugin is missing, repeat step 1 and restart Codex. Do not copy plugin files
@@ -156,7 +177,7 @@ into application folders manually.
 ![Verified sources and approved voice move through the local checker before human approval.](plugins/ai-sloppy-copy/assets/workflow.svg)
 
 The shared skill applies the writing contract. Both host protocols use the same
-hooks and checker against the same 2.1.1 rule file. The Python checker handles
+hooks and checker against the same 2.2.0 rule file. The Python checker handles
 repeatable file scans. Protected text and human approval remain explicit
 boundaries.
 

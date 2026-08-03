@@ -118,6 +118,23 @@ def emit(value: dict[str, Any]) -> None:
     sys.stdout.write(json.dumps(value, ensure_ascii=False))
 
 
+def repair_hints(findings: list[dict[str, Any]], limit: int = 5) -> str:
+    """Return bounded repair context for the first two hook retries."""
+    hints = []
+    seen = set()
+    for item in findings:
+        rule_id = str(item.get("rule_id") or "")
+        if not rule_id or rule_id in seen:
+            continue
+        seen.add(rule_id)
+        match = " ".join(str(item.get("match") or "").split())[:80]
+        action = " ".join(str(item.get("action") or "Rewrite the sentence.").split())[:180]
+        hints.append(f"{rule_id} matched {json.dumps(match, ensure_ascii=False)}: {action}")
+        if len(hints) == limit:
+            break
+    return " ".join(hints)
+
+
 def main() -> int:
     try:
         event = json.load(sys.stdin)
@@ -155,6 +172,11 @@ def main() -> int:
         return 0
 
     rule_ids = ", ".join(sorted({item["rule_id"] for item in hard}))
+    retry_message = (
+        f"AI Sloppy Copy check failed. {repair_hints(hard)} "
+        "Return the complete corrected deliverable only. Do not explain the repair, "
+        "quote failed text, or return partial replacement instructions. Check again."
+    )
     failure = next_failure(session_id)
     if failure > 2 and is_claude:
         emit(
@@ -175,15 +197,15 @@ def main() -> int:
         emit(
             {
                 "decision": "block",
-                "reason": f"AI Sloppy Copy check failed: {rule_ids}. Rewrite and check again.",
+                "reason": retry_message,
             }
         )
     else:
         emit(
             {
                 "continue": False,
-                "stopReason": f"AI Sloppy Copy check failed: {rule_ids}. Rewrite and check again.",
-                "systemMessage": f"AI Sloppy Copy check failed: {rule_ids}. Rewrite and check again.",
+                "stopReason": retry_message,
+                "systemMessage": retry_message,
             }
         )
     return 0

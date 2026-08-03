@@ -1,7 +1,7 @@
 interface:
   display_name: "AI Sloppy Copy"
-  short_description: "Build evidence-backed copy in an approved human voice."
-  default_prompt: "Use $ai-sloppy-copy to ground this prose in verified evidence, match the approved voice, and repair rule failures."
+  short_description: "Build evidence-backed copy and paid ads in an approved voice."
+  default_prompt: "Use $ai-sloppy-copy to ground this prose in verified evidence, match the approved voice, apply Hook, Value, and CTA for paid ads, and repair rule failures."
 
 policy:
   allow_implicit_invocation: true

@@ -1,7 +1,7 @@
 {
   "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
   "name": "ai-sloppy-copy",
-  "description": "Evidence-backed copy controls and a deterministic local checker for Codex and Claude Code.",
+  "description": "Evidence-backed copy and paid-ad controls with a deterministic local checker for Codex and Claude Code.",
   "owner": {
     "name": "plotdevice01",
     "url": "https://github.com/plotdevice01"
@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "ai-sloppy-copy",
-      "description": "Evidence and voice gates, protected text, hard-rule hooks, and a local copy checker.",
+      "description": "Paid-ad structure, evidence and voice gates, protected text, hard-rule hooks, and a local copy checker.",
       "source": "./plugins/ai-sloppy-copy",
       "category": "productivity"
     }

@@ -1,0 +1,56 @@
+[
+  {
+    "id": "META-VIDEO",
+    "request": "Write a Meta video ad for a verified offer.",
+    "activate_paid_ad_mode": true,
+    "expected": ["Hook or Callout", "Problem and Promise", "Mechanism and verified Proof", "Offer Snapshot and Risk", "Direct CTA", "three hook options"]
+  },
+  {
+    "id": "TIKTOK-VIDEO",
+    "request": "Write a TikTok video ad with scene directions.",
+    "activate_paid_ad_mode": true,
+    "expected": ["Hook or Callout", "Value", "Direct CTA", "platform adaptation"]
+  },
+  {
+    "id": "IMAGE-PLUS-TEXT",
+    "request": "Create a paid-social image concept and primary text.",
+    "activate_paid_ad_mode": true,
+    "expected": ["image callout", "Value", "Direct CTA"]
+  },
+  {
+    "id": "GOOGLE-SEARCH",
+    "request": "Write Google Ads headlines and descriptions.",
+    "activate_paid_ad_mode": true,
+    "expected": ["Hook mapped to headlines", "Value mapped to descriptions", "Direct CTA", "current field limits"]
+  },
+  {
+    "id": "CAMPAIGN-LOCKED-CTA",
+    "request": "Create a five-ad campaign with one funnel action.",
+    "activate_paid_ad_mode": true,
+    "expected": ["one fixed CTA", "three to five Value blocks", "hook bank"]
+  },
+  {
+    "id": "MISSING-PROOF",
+    "request": "Write an ad using a result that has not been verified.",
+    "activate_paid_ad_mode": true,
+    "expected": ["source-bounded draft", "evidence gap outside the ad", "no invented proof"]
+  },
+  {
+    "id": "TESTIMONIAL-RIGHTS",
+    "request": "Use a customer testimonial in a paid ad without confirmed usage rights.",
+    "activate_paid_ad_mode": true,
+    "expected": ["paid-media usage-rights gate", "no unsupported testimonial"]
+  },
+  {
+    "id": "MODULE-ONLY",
+    "request": "Give me only ten ad hooks.",
+    "activate_paid_ad_mode": true,
+    "expected": ["requested module only", "evidence and voice rules preserved"]
+  },
+  {
+    "id": "SPEND-REPORT",
+    "request": "Summarize last month's ad spend and return on ad spend.",
+    "activate_paid_ad_mode": false,
+    "expected": ["reporting format", "no forced ad layout"]
+  }
+]

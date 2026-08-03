@@ -1,6 +1,6 @@
 ---
 name: ai-sloppy-copy
-description: Check, edit, or review assistant-authored copy, replies, email, reports, captions, headings, tables, UI text, recommendations, testimonials, case studies, and long-form fiction under the AI Sloppy Copy Standard. Use when writing client-facing prose, removing model-written patterns, grounding named-person copy in verified evidence, applying a voice profile, or returning a compliance report.
+description: Create, edit, check, or review assistant-authored prose and paid ads under the AI Sloppy Copy Standard. Use for copy, replies, email, reports, captions, headings, tables, UI text, recommendations, testimonials, case studies, fiction, or advertising requests that mention ad, ads, advertisement, video ad, paid campaign, paid social, Meta, Facebook, Instagram, Google Ads, YouTube, TikTok, LinkedIn, X, Reddit, Pinterest, Snapchat, or Amazon.
 ---
 
 # AI Sloppy Copy
@@ -14,6 +14,8 @@ own writing instructions.
   blockers, and next steps.
 - Never use a hard-block term or expression from the bundled rule file.
 - Never use em dashes or en dashes in authored prose.
+- In short copy, do not use a three-part comma series. The hard cap is one per
+  500 words.
 - Use decorative emoji only when the user requests it.
 - Use sentence case for headings unless required wording says otherwise.
 - Keep measured uncertainty and source limits. Never invent facts or citations.
@@ -45,11 +47,66 @@ testimonial, endorsement, or case study:
    rule compliance and evidence coverage as separate checks. Report
    voice-source status and owner approval separately too.
 
+## Paid ad mode
+
+Activate this mode when the requested deliverable is ad copy or ad creative for
+any advertising platform. Do not activate it for reporting, analysis, or
+operations work that only mentions ads or ad spend.
+
+Before drafting, define:
+
+1. What value should be shown.
+2. Who should see it.
+3. When it matters.
+
+Use this order for every complete ad:
+
+1. Hook or Callout.
+2. Problem and Promise.
+3. Mechanism and verified Proof.
+4. Offer Snapshot and Risk.
+5. One Direct CTA that names the action and immediate benefit.
+
+The entire ad may contain only that action request. Remove secondary
+invitations such as learn more, see how, try it, get started, compare, or
+discover.
+
+Output rules:
+
+- One ad: return the finished ad plus three hook options.
+- Campaign: keep one CTA fixed, use three to five Value blocks, and build a
+  larger hook bank across approved awareness stages.
+- Hook-only or CTA-only request: return only the requested module while keeping
+  evidence and voice controls.
+- Platform-specific request: map Hook, Value, and CTA into current fields,
+  placement, format, and limits. Verified offer facts and current platform
+  requirements outrank a template.
+
+An ad may use only supplied, verified facts. Do not infer product behavior,
+delivery method, automation, compatibility, before-state, pain intensity,
+workflow, or customer results. State a Problem or Promise only when supported.
+If a required block lacks facts, omit the claim or use a bounded placeholder,
+then name the gap outside the ad.
+
+A product feature does not prove a customer problem or before-state. Do not
+reverse-engineer either from the solution.
+
+Keep each duration attached to the exact supplied event. Do not convert a call
+duration into a delivery time, workflow duration, result time, or promised
+outcome. If only a call duration is known, state only that the call takes that
+long or use the event name in the CTA. Keep the duration out of hooks and
+benefit claims. Do not invent what occurs during the call.
+
+Never invent proof, testimonials, urgency, offer facts, usage rights, or
+platform limits. Verify current facts before publication. Paid-media
+testimonials require verified paid-media usage rights. Treat this framework as
+a testing structure, not a promise of results.
+
 ## Workflow
 
 1. Identify authored prose and protected text.
 2. Preserve facts, stance, source limits, names, numbers, dates, and required wording.
-3. Apply the evidence and voice gate when the format requires it.
+3. Apply the evidence and voice gate or paid ad mode when the format requires it.
 4. Draft in plain language.
 5. Run the bundled checker. Resolve the host's `PLUGIN_ROOT` or
    `CLAUDE_PLUGIN_ROOT` to this plugin's installed root:

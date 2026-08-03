@@ -48,7 +48,7 @@ def build(output: Path = OUTPUT) -> str:
     with zipfile.ZipFile(output, "w", compression=zipfile.ZIP_STORED) as archive:
         for path in FILES:
             relative = path.relative_to(ROOT).as_posix()
-            info = zipfile.ZipInfo(f"{NAME}/{relative}", (2026, 7, 30, 0, 0, 0))
+            info = zipfile.ZipInfo(f"{NAME}/{relative}", (2026, 8, 2, 0, 0, 0))
             info.create_system = 3
             info.external_attr = 0o100644 << 16
             info.compress_type = zipfile.ZIP_STORED

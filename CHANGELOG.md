@@ -1,5 +1,29 @@
 # Changelog
 
+## 0.5.0 - 2026-08-03
+
+### Changed
+
+- Adopted one semantic product version. GitHub releases and tags now use the
+  same version as both host manifests.
+- Added a beginner-facing version guide to the public README. It explains the
+  product package and the separate Standard rules contract.
+- Strengthened hook repair feedback. Each retry must rescan the complete
+  corrected answer instead of checking only the named passages.
+- Accepted UTF-8 byte-order marks in hook JSON from Windows PowerShell.
+
+### Validation
+
+- Added the combined STYLE-001 and STYLE-008 review failure as a regression.
+- Added coverage for a partial repair followed by a clean pass.
+- Preserved 288 term rules and 21 expression rules. All 41 style rules remain.
+  The nine paid-ad scenarios remain too.
+
+### Compatibility
+
+- Release, tag, ZIP, and host manifests use `0.5.0`.
+- The package continues to include AI Sloppy Copy Standard `2.2.0`.
+
 ## 0.4 - 2026-08-02
 
 ### Added

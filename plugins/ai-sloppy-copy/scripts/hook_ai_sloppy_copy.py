@@ -118,6 +118,17 @@ def emit(value: dict[str, Any]) -> None:
     sys.stdout.write(json.dumps(value, ensure_ascii=False))
 
 
+def read_event() -> dict[str, Any] | None:
+    raw = sys.stdin.read().lstrip("\ufeff")
+    if not raw.strip():
+        return None
+    try:
+        value = json.loads(raw)
+    except json.JSONDecodeError:
+        return None
+    return value if isinstance(value, dict) else None
+
+
 def repair_hints(findings: list[dict[str, Any]], limit: int = 5) -> str:
     """Return bounded repair context for the first two hook retries."""
     hints = []
@@ -136,9 +147,8 @@ def repair_hints(findings: list[dict[str, Any]], limit: int = 5) -> str:
 
 
 def main() -> int:
-    try:
-        event = json.load(sys.stdin)
-    except json.JSONDecodeError:
+    event = read_event()
+    if event is None:
         return 0
 
     session_id = str(event.get("session_id") or event.get("sessionId") or os.getpid())
@@ -175,7 +185,9 @@ def main() -> int:
     retry_message = (
         f"AI Sloppy Copy check failed. {repair_hints(hard)} "
         "Return the complete corrected deliverable only. Do not explain the repair, "
-        "quote failed text, or return partial replacement instructions. Check again."
+        "quote failed text, or return partial replacement instructions. Rewrite every "
+        "failing sentence, then scan the full corrected deliverable again. Do not check "
+        "only the named passages."
     )
     failure = next_failure(session_id)
     if failure > 2 and is_claude:

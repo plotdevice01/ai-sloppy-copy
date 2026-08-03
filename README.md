@@ -16,6 +16,7 @@
 <p align="center">
   <a href="#install">Install</a> |
   <a href="#see-it-work">Example</a> |
+  <a href="#versions-explained">Versions</a> |
   <a href="#what-it-enforces">Rules</a> |
   <a href="#use-the-checker-directly">CLI</a> |
   <a href="#privacy-and-security">Security</a>
@@ -29,22 +30,39 @@ repair. The operator keeps final approval.
 It does **not** identify who wrote text or promise AI-detector results. Rule
 compliance and authorship are different questions.
 
-## What changed in v0.4
+## What changed in v0.5.0
 
-- Added a universal paid-ad mode for Meta, TikTok, Google Ads, YouTube,
-  LinkedIn, X, Reddit, Pinterest, Snapchat, Amazon, and other ad platforms.
-- Complete ads preserve a Hook or Callout. They also preserve ordered Value
-  blocks plus one Direct CTA. Campaigns keep the CTA fixed while testing three
-  to five Value blocks and a larger hook bank.
-- Proof and results stay evidence-gated. The same gate covers testimonials and
-  urgency. It also covers offer facts and platform limits. Paid-media usage
-  rights require separate confirmation.
-- Ads may use only supplied, verified facts. Product behavior and delivery
-  method cannot be inferred. Automation or compatibility claims also require
-  support.
-- Reporting that merely mentions ads or ad spend does not trigger an ad layout.
-- Public release `0.4` contains AI Sloppy Copy Standard `2.2.0`. Host manifests
-  use `0.4.0` because plugin formats require three-part semantic versions.
+- The GitHub release, tag, ZIP, and both host manifests now use `0.5.0`.
+- Windows PowerShell hook input may begin with a UTF-8 byte-order mark. The
+  parser now accepts it instead of silently skipping the event.
+- The combined STYLE-001 and STYLE-008 failure shown during the `0.4.0` review
+  is now a regression case. The test covers a partial repair plus a clean pass.
+- Repair feedback now requires another scan of the complete corrected answer.
+  Checking only the named passages is not enough.
+- Paid-ad behavior remains unchanged. Standard `2.2.0` remains the active
+  rules contract.
+
+## Versions explained
+
+AI Sloppy Copy has one product version and one Standard version. Users install
+and cite the product version.
+
+| Layer | Current version | What it identifies | When it changes |
+| --- | ---: | --- | --- |
+| Product | `0.5.0` | The GitHub release and installable ZIP. Both host manifests carry the same number. | Plugin code, hooks, packaging, or public documentation changes. |
+| Standard | `2.2.0` | The rules contract used by the skill and local checker. | A writing rule or its enforcement contract changes. |
+
+The product package contains the skill instructions and lifecycle hooks. It
+also carries the local checker with its compiled rules. Host manifests and
+visual assets are included.
+
+Standard `2.2.0` defines 288 term rules plus 21 expression rules. It defines 41
+style rules too. Evidence controls and approved-voice boundaries are part of
+the contract. Protected-text handling and paid-ad requirements are included.
+
+A manifest is a small JSON file inside the plugin. Codex and Claude Code read
+it to identify the plugin plus its version. The Codex manifest also identifies
+the skill location and interface assets. A manifest is not a separate release.
 
 ## See it work
 
@@ -85,7 +103,7 @@ replacement or silently change protected text.
 | Term rules | 288 |
 | Expression rules | 21 |
 | Style rules | 41 |
-| Regression cases | 64 |
+| Regression cases | 67 |
 | Paid-ad scenarios | 9 |
 | Checker network calls | 0 |
 
@@ -113,7 +131,7 @@ codex plugin marketplace upgrade ai-sloppy-copy
 ```
 
 If you still have a legacy `2.2.6` installation, reinstall once.
-Semantic-version updaters correctly but unhelpfully sort `0.4.0` below
+Semantic-version updaters correctly but unhelpfully sort `0.5.0` below
 `2.2.6`:
 
 ```powershell

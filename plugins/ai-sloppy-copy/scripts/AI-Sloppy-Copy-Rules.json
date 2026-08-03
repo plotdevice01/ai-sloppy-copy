@@ -7336,7 +7336,7 @@
                             "rule_id":  "ADS-004",
                             "dataset_id":  "DS-010",
                             "name":  "Direct CTA",
-                            "instruction":  "End a complete ad with exactly one direct CTA that names the action and its immediate benefit. The entire ad may contain only that action request. Remove secondary invitations such as learn more, see how, try it, get started, compare, or discover. Verify any stated time frame before use. Keep each duration attached to the exact supplied event. Do not convert a call duration into a delivery time, workflow duration, result time, or promised outcome. If only a call duration is known, keep it out of hooks and benefit claims. State only that the call takes that long or use the event name in the CTA. Do not invent what occurs during the call.",
+                            "instruction":  "End a complete ad with exactly one direct CTA that names the action and its immediate benefit. The entire ad may contain only that action request. Remove secondary invitations such as learn more or see how. Also remove try it, get started, compare, and discover. Verify any stated time frame before use. Keep each duration attached to the exact supplied event. Do not convert a call duration into a delivery time or workflow duration. Do not convert it into a result time or promised outcome. If only a call duration is known, keep it out of hooks and benefit claims. State only that the call takes that long or use the event name in the CTA. Do not invent what occurs during the call.",
                             "detection_patterns":  [
 
                                                    ],
@@ -7381,7 +7381,7 @@
                             "rule_id":  "ADS-007",
                             "dataset_id":  "DS-010",
                             "name":  "Ad evidence and rights",
-                            "instruction":  "An ad may use only supplied, verified facts. Do not infer product behavior, delivery method, automation, compatibility, before-state, pain intensity, workflow, customer results, proof, testimonials, urgency, offer facts, usage rights, or platform limits. State a Problem or Promise only when supported. If a required block lacks facts, omit the claim or use a bounded placeholder, then name the gap outside the ad. Verify current facts before publication. Testimonials used in paid media require verified paid-media usage rights. Treat the framework as a testing structure, never a promise of results.",
+                            "instruction":  "An ad may use only supplied, verified facts. Do not infer product behavior or delivery method. Do not infer automation or compatibility. Do not invent the before-state or pain intensity. Do not invent workflow details or customer results. Never invent proof or testimonials. Do not invent urgency or offer facts. Verify usage rights and platform limits before publication. State a Problem or Promise only when supported. If a required block lacks facts, omit the claim or use a bounded placeholder, then name the gap outside the ad. Verify current facts before publication. Testimonials used in paid media require verified paid-media usage rights. Treat the framework as a testing structure, never a promise of results.",
                             "detection_patterns":  [
 
                                                    ],

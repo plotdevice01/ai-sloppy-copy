@@ -68,23 +68,24 @@ Use this order for every complete ad:
 5. One Direct CTA that names the action and immediate benefit.
 
 The entire ad may contain only that action request. Remove secondary
-invitations such as learn more, see how, try it, get started, compare, or
-discover.
+invitations such as learn more or see how. Also remove try it, get started,
+compare, and discover.
 
 Output rules:
 
 - One ad: return the finished ad plus three hook options.
-- Campaign: keep one CTA fixed, use three to five Value blocks, and build a
+- Campaign: keep one CTA fixed and use three to five Value blocks. Build a
   larger hook bank across approved awareness stages.
 - Hook-only or CTA-only request: return only the requested module while keeping
   evidence and voice controls.
-- Platform-specific request: map Hook, Value, and CTA into current fields,
-  placement, format, and limits. Verified offer facts and current platform
-  requirements outrank a template.
+- Platform-specific request: map Hook and Value into current fields. Map the CTA
+  too. Respect the current placement and format. Respect platform limits.
+  Verified offer facts and current platform requirements outrank a template.
 
-An ad may use only supplied, verified facts. Do not infer product behavior,
-delivery method, automation, compatibility, before-state, pain intensity,
-workflow, or customer results. State a Problem or Promise only when supported.
+An ad may use only supplied, verified facts. Do not infer product behavior or
+its delivery method. Do not infer automation or compatibility. Do not invent
+the before-state or pain intensity. Do not invent workflow details or customer results. State
+a Problem or Promise only when supported.
 If a required block lacks facts, omit the claim or use a bounded placeholder,
 then name the gap outside the ad.
 
@@ -92,13 +93,13 @@ A product feature does not prove a customer problem or before-state. Do not
 reverse-engineer either from the solution.
 
 Keep each duration attached to the exact supplied event. Do not convert a call
-duration into a delivery time, workflow duration, result time, or promised
-outcome. If only a call duration is known, state only that the call takes that
+duration into a delivery time or workflow duration. Do not convert it into a
+result time or promised outcome. If only a call duration is known, state only that the call takes that
 long or use the event name in the CTA. Keep the duration out of hooks and
 benefit claims. Do not invent what occurs during the call.
 
-Never invent proof, testimonials, urgency, offer facts, usage rights, or
-platform limits. Verify current facts before publication. Paid-media
+Never invent proof or testimonials. Do not invent urgency or offer facts.
+Verify usage rights and platform limits before publication. Paid-media
 testimonials require verified paid-media usage rights. Treat this framework as
 a testing structure, not a promise of results.
 
@@ -119,7 +120,8 @@ On macOS or Linux, use `python3` and forward slashes.
 
 6. Repair each hard failure from the sentence's concrete meaning.
 7. Review warning and review rules that apply to the requested format.
-8. Check again. Stop after two repair passes.
+8. Check the entire corrected deliverable again, not only the named passages.
+   Stop after two repair passes.
 9. Return only the corrected work unless the user requests an audit.
 
 ## Protected text

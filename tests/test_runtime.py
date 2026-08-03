@@ -18,7 +18,7 @@ PLUGIN = ROOT / "plugins" / "ai-sloppy-copy"
 SCRIPTS = PLUGIN / "scripts"
 RULES = SCRIPTS / "AI-Sloppy-Copy-Rules.json"
 VERSION = (ROOT / "VERSION").read_text(encoding="utf-8").strip()
-MANIFEST_VERSION = f"{VERSION}.0"
+MANIFEST_VERSION = VERSION
 
 
 def load_checker():
@@ -51,7 +51,7 @@ def main() -> None:
     assert marketplace["name"] == "ai-sloppy-copy"
     assert marketplace["plugins"][0]["source"]["path"] == "./plugins/ai-sloppy-copy"
     assert manifest["name"] == "ai-sloppy-copy"
-    assert VERSION == "0.4"
+    assert VERSION == "0.5.0"
     assert manifest["version"] == MANIFEST_VERSION
     assert claude_marketplace["name"] == "ai-sloppy-copy"
     assert claude_marketplace["plugins"][0]["source"] == "./plugins/ai-sloppy-copy"
@@ -87,6 +87,9 @@ def main() -> None:
         assert root.find("svg:desc", namespace) is not None, asset.name
 
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
+    assert "## Versions explained" in readme
+    assert "0.5.0" in readme
+    assert "Standard `2.2.0`" in readme
     local_references = re.findall(r"\]\((?!https?://|#)([^)]+)\)", readme)
     local_references += re.findall(r'(?:src|srcset)="(?!https?://)([^"]+)"', readme)
     for relative in local_references:
@@ -169,6 +172,20 @@ def main() -> None:
             check=True,
         )
         assert json.loads(reset.stdout) == {}
+        bom_reset = subprocess.run(
+            [sys.executable, str(SCRIPTS / "hook_ai_sloppy_copy.py")],
+            input="\ufeff"
+            + json.dumps(
+                {
+                    "session_id": "public-runtime-bom-test",
+                    "hook_event_name": "UserPromptSubmit",
+                }
+            ),
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+        assert json.loads(bom_reset.stdout) == {}
         transcript = Path(folder) / "transcript.jsonl"
         large = "x" * 70000 + " latest assistant message"
         transcript.write_text(
@@ -246,6 +263,83 @@ def main() -> None:
         assert 'matched "leverage"' in claude_payload["reason"]
         assert "concrete information" in claude_payload["reason"]
         assert "complete corrected deliverable only" in claude_payload["reason"]
+
+        repair_session = "public-repair-runtime-test"
+        subprocess.run(
+            [sys.executable, str(SCRIPTS / "hook_ai_sloppy_copy.py")],
+            input=json.dumps(
+                {
+                    "session_id": repair_session,
+                    "hook_event_name": "UserPromptSubmit",
+                }
+            ),
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+        first_repair = subprocess.run(
+            [sys.executable, str(SCRIPTS / "hook_ai_sloppy_copy.py")],
+            input=json.dumps(
+                {
+                    "session_id": repair_session,
+                    "hook_event_name": "Stop",
+                    "last_assistant_message": (
+                        "Product release 0.4\u2014The package includes the checker, "
+                        "Codex and Claude manifests, and supporting assets. The Standard "
+                        "covers protected-text behavior, paid-ad requirements, and "
+                        "enforcement expectations."
+                    ),
+                }
+            ),
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+        first_repair_payload = json.loads(first_repair.stdout)
+        assert first_repair_payload["decision"] == "block"
+        assert "STYLE-001" in first_repair_payload["reason"]
+        assert "STYLE-008" in first_repair_payload["reason"]
+        assert "full corrected deliverable again" in first_repair_payload["reason"]
+
+        second_repair = subprocess.run(
+            [sys.executable, str(SCRIPTS / "hook_ai_sloppy_copy.py")],
+            input=json.dumps(
+                {
+                    "session_id": repair_session,
+                    "hook_event_name": "Stop",
+                    "last_assistant_message": (
+                        "The package includes the checker, both host manifests, and visual "
+                        "assets. The Standard covers protected-text behavior, paid-ad "
+                        "requirements, and enforcement expectations."
+                    ),
+                }
+            ),
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+        second_repair_payload = json.loads(second_repair.stdout)
+        assert second_repair_payload["decision"] == "block"
+        assert "STYLE-008" in second_repair_payload["reason"]
+
+        repaired = subprocess.run(
+            [sys.executable, str(SCRIPTS / "hook_ai_sloppy_copy.py")],
+            input=json.dumps(
+                {
+                    "session_id": repair_session,
+                    "hook_event_name": "Stop",
+                    "last_assistant_message": (
+                        "The package includes the checker and both host manifests. Visual "
+                        "assets are included. The Standard defines protected-text behavior "
+                        "plus paid-ad requirements. It also defines enforcement expectations."
+                    ),
+                }
+            ),
+            text=True,
+            capture_output=True,
+            check=True,
+        )
+        assert json.loads(repaired.stdout) == {}
 
     public_text = "\n".join(
         path.read_text(encoding="utf-8", errors="ignore")

@@ -1,6 +1,6 @@
 {
   "name": "ai-sloppy-copy",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Builds evidence-backed prose and paid ads in an approved voice, then checks them against the AI Sloppy Copy Standard.",
   "author": {
     "name": "plotdevice01",

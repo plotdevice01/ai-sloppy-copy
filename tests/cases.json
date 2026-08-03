@@ -62,5 +62,8 @@
   { "id": "PASS-012", "expect": "pass", "text": "The folders are red, green, and yellow." },
   { "id": "PASS-013", "expect": "pass", "text": "The flags are red, green, yellow, and blue." },
   { "id": "PASS-014", "expect": "pass", "text": "The checker found no rule violations. Authorship was not evaluated." },
-  { "id": "PASS-015", "expect": "pass", "text": "<p align=\"center\">The report is ready.</p>" }
+  { "id": "FAIL-049", "expect": "fail", "rule_id": "STYLE-001", "text": "Product release 0.4\u2014The package includes the checker, Codex and Claude manifests, and supporting assets. The Standard covers protected-text behavior, paid-ad requirements, and enforcement expectations." },
+  { "id": "FAIL-050", "expect": "fail", "rule_id": "STYLE-008", "text": "The package includes the checker, both host manifests, and visual assets. The Standard covers protected-text behavior, paid-ad requirements, and enforcement expectations." },
+  { "id": "PASS-015", "expect": "pass", "text": "<p align=\"center\">The report is ready.</p>" },
+  { "id": "PASS-016", "expect": "pass", "text": "The package includes the checker and both host manifests. Visual assets are included. The Standard defines protected-text behavior plus paid-ad requirements. It also defines enforcement expectations." }
 ]

@@ -7,11 +7,10 @@
 </h1>
 
 <p align="center">
-  Copy and paid-ad guardrails for Codex and Claude Code: verify the claim,
-  protect exact text, match the approved voice, and stop blocked phrasing.
+  Upstream copy and paid-ad guardrails used by Chief for ChatGPT Work and Codex.
 </p>
 
-<p align="center"><a href="https://github.com/plotdevice01/ai-sloppy-copy/actions/workflows/validate.yml"><img alt="CI status" src="https://github.com/plotdevice01/ai-sloppy-copy/actions/workflows/validate.yml/badge.svg"></a> <a href="https://github.com/plotdevice01/ai-sloppy-copy/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/plotdevice01/ai-sloppy-copy"></a> <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0f766e.svg"></a> <img alt="Codex and Claude Code" src="https://img.shields.io/badge/hosts-Codex_%2B_Claude_Code-0f766e.svg"> <img alt="Python standard library" src="https://img.shields.io/badge/Python-stdlib_only-3776AB.svg"> <img alt="Local checker with no telemetry" src="https://img.shields.io/badge/checker-local_only-14b8a6.svg"></p>
+<p align="center"><a href="https://github.com/plotdevice01/ai-sloppy-copy/actions/workflows/validate.yml"><img alt="CI status" src="https://github.com/plotdevice01/ai-sloppy-copy/actions/workflows/validate.yml/badge.svg"></a> <a href="https://github.com/plotdevice01/ai-sloppy-copy/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/plotdevice01/ai-sloppy-copy"></a> <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/badge/license-MIT-0f766e.svg"></a> <img alt="Chief upstream runtime" src="https://img.shields.io/badge/Chief-upstream_runtime-0f766e.svg"> <img alt="Python standard library" src="https://img.shields.io/badge/Python-stdlib_only-3776AB.svg"> <img alt="Local checker with no telemetry" src="https://img.shields.io/badge/checker-local_only-14b8a6.svg"></p>
 
 <p align="center">
   <a href="#install">Install</a> |
@@ -22,10 +21,15 @@
   <a href="#privacy-and-security">Security</a>
 </p>
 
-AI Sloppy Copy is a Codex and Claude Code plugin with a deterministic local
-checker. It catches prohibited model-written patterns, applies evidence and
-voice controls, preserves paid-ad structure, and returns exact rule IDs for
-repair. The operator keeps final approval.
+AI Sloppy Copy is the independently maintained source product for Chief's
+writing and evidence validator. Chief pins release `0.5.0` and loads it only
+when the request needs governed copy. Ordinary teammates do not install or
+select AI Sloppy Copy separately; they install Chief and ask for the work they
+need. This repository remains public for maintainers and direct development.
+
+The deterministic local checker catches prohibited model-written patterns,
+applies evidence and voice controls, preserves paid-ad structure, and returns
+exact rule IDs for repair. The operator keeps final approval.
 
 It does **not** identify who wrote text or promise AI-detector results. Rule
 compliance and authorship are different questions.
@@ -60,9 +64,9 @@ Standard `2.2.0` defines 288 term rules plus 21 expression rules. It defines 41
 style rules too. Evidence controls and approved-voice boundaries are part of
 the contract. Protected-text handling and paid-ad requirements are included.
 
-A manifest is a small JSON file inside the plugin. Codex and Claude Code read
-it to identify the plugin plus its version. The Codex manifest also identifies
-the skill location and interface assets. A manifest is not a separate release.
+A manifest is a small JSON file inside the upstream package. Chief's release
+builder imports the pinned runtime and records its version with its hashes.
+Only Chief is exposed to teammates. A manifest is not a separate release.
 
 ## See it work
 
@@ -109,15 +113,25 @@ replacement or silently change protected text.
 
 ## Install
 
-You need [Python 3](https://www.python.org/downloads/) plus
-[Codex](https://developers.openai.com/codex/) or
-[Claude Code](https://code.claude.com/docs/en/setup). No repository clone is
-required. No local path or checksum ceremony is required.
+### Normal team use
 
-### Codex
+Install [Chief of Staff](https://github.com/plotdevice01/codex-chief-of-staff)
+once. Do not install this repository separately. In ChatGPT Work, open
+**Plugins**, find **Chief of Staff**, click **+**, and start a new chat after
+OpenAI publishes the public listing. Until then, a workspace admin can install
+Chief from its GitHub-backed marketplace.
 
-Open a terminal. Windows users can use PowerShell or the Codex terminal. Run
-each command once:
+Ask Chief normally. For example:
+
+> Revise this landing page, preserve the approved voice, verify every claim,
+> and return release-ready copy.
+
+Chief routes the request through AI Sloppy Copy and reports what ran.
+
+### Direct Codex development only
+
+Maintainers testing AI Sloppy Copy independently can install the upstream
+package directly:
 
 ```powershell
 codex plugin marketplace add plotdevice01/ai-sloppy-copy
@@ -147,44 +161,10 @@ fresh task. Confirm the plugin:
 codex plugin list --json
 ```
 
-### Claude Code
-
-```powershell
-claude plugin marketplace add plotdevice01/ai-sloppy-copy
-claude plugin install ai-sloppy-copy@ai-sloppy-copy --scope user
-```
-
-If you still have a legacy `2.2.6` installation, reinstall once:
-
-```powershell
-claude plugin uninstall ai-sloppy-copy@ai-sloppy-copy
-claude plugin marketplace update ai-sloppy-copy
-claude plugin install ai-sloppy-copy@ai-sloppy-copy --scope user
-```
-
-Start Claude Code, run `/reload-plugins`, review `/hooks`, and start a fresh
-session. Confirm the plugin:
-
-```powershell
-claude plugin list --json
-```
-
-For either host, confirm `ai-sloppy-copy@ai-sloppy-copy` is installed and
-active.
-
-In Codex, ask:
+Confirm `ai-sloppy-copy@ai-sloppy-copy` is installed and active. Then ask:
 
 > Use AI Sloppy Copy to revise this text: We can leverage this cutting-edge
 > system to turbocharge production.
-
-In Claude Code, use the plugin's namespaced skill command:
-
-```text
-/ai-sloppy-copy:ai-sloppy-copy
-
-Revise this text: We can leverage this cutting-edge system to turbocharge
-production.
-```
 
 The response should replace the flagged phrases with specific wording. If the
 plugin is missing, repeat step 1 and restart Codex. Do not copy plugin files
@@ -214,7 +194,7 @@ Supported inputs: TXT, Markdown, CSV, JSON, HTML, XML, and DOCX.
 - Exit code `0`: no hard violations.
 - Exit code `1`: one or more hard violations.
 
-## Update or remove
+## Update or remove a direct development install
 
 Update:
 
@@ -224,11 +204,6 @@ codex plugin remove ai-sloppy-copy
 codex plugin add ai-sloppy-copy@ai-sloppy-copy
 ```
 
-```powershell
-claude plugin marketplace update ai-sloppy-copy
-claude plugin update ai-sloppy-copy@ai-sloppy-copy
-```
-
 Remove:
 
 ```powershell
@@ -236,16 +211,13 @@ codex plugin remove ai-sloppy-copy
 codex plugin marketplace remove ai-sloppy-copy
 ```
 
-```powershell
-claude plugin uninstall ai-sloppy-copy@ai-sloppy-copy
-claude plugin marketplace remove ai-sloppy-copy
-```
-
 ## Chief of Staff stack
 
-AI Sloppy Copy is also included in the recommended
+AI Sloppy Copy is bundled as a pinned internal runtime in
 [Codex Chief of Staff](https://github.com/plotdevice01/codex-chief-of-staff)
-installation. Its guide installs the complete companion stack in order.
+and is not a separate team install or public-directory listing. The teammate
+makes one request to Chief. Chief handles the internal route without specialist
+negotiation.
 
 ## Privacy and security
 
@@ -263,7 +235,6 @@ See [SECURITY.md](SECURITY.md) for the support policy.
 
 ```powershell
 python tests/test_runtime.py
-claude plugin validate .
 python scripts/build_release.py
 ```
 
